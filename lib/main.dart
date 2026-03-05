@@ -1,5 +1,6 @@
 import 'package:blood_donation_management_system/core/theme/theme_const.dart';
 import 'package:blood_donation_management_system/features/Auth/Login/presentation/login_view.dart';
+import 'package:blood_donation_management_system/features/Dashboard/presentation/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeConst.getTheme(),
-      home: LoginView(),
+      home: DashboardPage(),
     );
   }
 }
