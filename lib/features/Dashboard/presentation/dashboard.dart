@@ -14,28 +14,34 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   @override
   Widget build(BuildContext context) {
+    
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
     return Scaffold(
       backgroundColor: customColors.background,
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: const [
-              SizedBox(height: 20),
-              UrgentRequestCard(),
-              SizedBox(height: 20),
-              DonationEligibilityCard(),
-              SizedBox(height: 20),
-              BloodPressureCard(),
-              SizedBox(height: 20),
-              AppointmentCard(),
-              SizedBox(height: 40),
-            ],
-          ),
+        child: Text(
+          "Hello",
+          style: textTheme.title,
         ),
+        
+        // SingleChildScrollView(
+        //   padding: const EdgeInsets.all(16),
+        //   child: Column(
+        //     children: const [
+        //       SizedBox(height: 20),
+        //       UrgentRequestCard(),
+        //       SizedBox(height: 20),
+        //       DonationEligibilityCard(),
+        //       SizedBox(height: 20),
+        //       BloodPressureCard(),
+        //       SizedBox(height: 20),
+        //       AppointmentCard(),
+        //       SizedBox(height: 40),
+        //     ],
+        //   ),
+        // ),
       ),
     );
   }
