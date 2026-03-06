@@ -1,7 +1,8 @@
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:flutter/material.dart';
 
-import '../../../core/theme/theme_getter.dart';
+import '../../../../core/theme/theme_getter.dart';
+
 
 class BloodPressureCard extends StatefulWidget {
   const BloodPressureCard({super.key});
@@ -12,8 +13,6 @@ class BloodPressureCard extends StatefulWidget {
 
 class _BloodPressureCardState extends State<BloodPressureCard>
     with SingleTickerProviderStateMixin {
-
-  static const Color primaryRed = Color(0xffFF2D3A);
 
   late AnimationController _controller;
   late Animation<int> _systolicAnimation;

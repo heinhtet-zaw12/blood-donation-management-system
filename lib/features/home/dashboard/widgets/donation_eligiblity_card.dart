@@ -1,9 +1,13 @@
 import 'dart:math';
+import 'package:blood_donation_management_system/core/theme/extension/bdms_text_theme.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
-import 'package:blood_donation_management_system/features/Dashboard/widgets/arc_painter.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
-import '../../../core/theme/theme_getter.dart';
+import '../../../../core/theme/theme_getter.dart';
+import 'arc_painter.dart';
+
+
 
 class DonationEligibilityCard extends StatefulWidget {
   const DonationEligibilityCard({super.key});
@@ -71,8 +75,18 @@ class _DonationEligibilityCardState
         children: [
           Row(
             children: [
-              Icon(Icons.ice_skating),
-              SizedBox(width: 10),
+              SizedBox(
+                width: 20,
+                child: SvgPicture.asset(
+                  "assets/images/time_icon.svg",
+                  height: 20,
+                  colorFilter: ColorFilter.mode(
+                    customColors.darkPrimary!,
+                    BlendMode.srcIn,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8),
               Text(
                 "Next Donation Eligibility",
                 style: textTheme.tabText.copyWith(color: customColors.darkPrimary),
@@ -119,24 +133,25 @@ class _DonationEligibilityCardState
               },
             ),
           ),
+          SizedBox(height: 15,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _legend(customColors.disabled, "Days Left"),
+              _legend(customColors.disabled, "Days Left" , customColors.textPrimary ,textTheme ),
               const SizedBox(width: 30),
-              _legend(const Color(0xffFF2D3A), "Days Spent"),
+              _legend(const Color(0xffFF2D3A), "Days Spent" , customColors.textPrimary , textTheme),
             ],
           )
         ],
       ),
     );
   }
-  Widget _legend(Color? color, String text) {
+  Widget _legend(Color? color, String text , Color? textColor ,BDMSTextTheme textTheme ) {
     return Row(
       children: [
         Container(
-          width: 40,
-          height: 6,
+          width: 30,
+          height: 5,
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.circular(10),
@@ -145,9 +160,8 @@ class _DonationEligibilityCardState
         const SizedBox(width: 10),
         Text(
           text,
-          style: const TextStyle(
-            fontSize: 10,
-            fontWeight: FontWeight.w600,
+          style: textTheme.bodyRegular.copyWith(
+            color:  textColor
           ),
         )
       ],
