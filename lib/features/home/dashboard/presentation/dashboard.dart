@@ -1,3 +1,5 @@
+import 'package:blood_donation_management_system/features/home/dashboard/widgets/become_lifeSaver_card.dart';
+import 'package:blood_donation_management_system/features/home/dashboard/widgets/donation_request_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/theme/theme_getter.dart';
@@ -23,17 +25,35 @@ class _DashboardScreenState extends State<DashboardScreen> {
       backgroundColor: customColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
           child: Column(
             children: const [
               SizedBox(height: 20),
-              UrgentRequestCard(),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: BecomeLifesaverCard(),
+              ),
               SizedBox(height: 20),
-              DonationEligibilityCard(),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: UrgentRequestCard(),
+              ),
               SizedBox(height: 20),
-              BloodPressureCard(),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: DonationEligibilityCard(),
+              ),
               SizedBox(height: 20),
-              AppointmentCard(),
+              DonationRequestCard(),
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: BloodPressureCard(),
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: EdgeInsets.all(16),
+                child: AppointmentCard(),
+              ),
               SizedBox(height: 40),
             ],
           ),
