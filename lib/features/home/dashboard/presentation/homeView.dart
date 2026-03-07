@@ -1,3 +1,4 @@
+import 'package:blood_donation_management_system/core/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -6,9 +7,10 @@ import '../../../../core/theme/theme_getter.dart';
 import '../widgets/drawerItem.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key, required this.shell});
+  const HomeView({super.key, required this.shell, this.logo, this.barIcon});
   final StatefulNavigationShell shell;
-
+  final String? logo;
+  final String? barIcon;
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -25,40 +27,7 @@ class _HomeViewState extends State<HomeView> {
     StatefulNavigationShell shell = widget.shell;
     return Scaffold(
       backgroundColor: customColors.background,
-      appBar: AppBar(
-        leadingWidth: 160,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        scrolledUnderElevation: 0,
-        leading:  Padding(
-          padding: const EdgeInsets.only(left: 40),
-          child: SizedBox(
-            width: 120,
-            child: SvgPicture.asset(
-              width: 120,
-                height: 50,
-                "assets/images/Logo.svg",
-            ),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Builder(
-              builder: (context) => IconButton(
-                icon: SvgPicture.asset(
-                  width: 35,
-                  height: 35,
-                  "assets/images/bars_icon.svg",
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-              ),
-            ),
-          )
-        ],
-      ),
+      appBar: AppBarWidget(),
       body:  shell,
       bottomNavigationBar: NavigationBar(
           backgroundColor:  colorScheme.primary,

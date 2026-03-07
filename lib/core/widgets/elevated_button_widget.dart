@@ -7,9 +7,13 @@ class ElevatedButtonWidget extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final SvgPicture? svg;
-  const ElevatedButtonWidget({super.key, required this.text,
+  final TextStyle? textStyle;
+
+  const ElevatedButtonWidget({
+    super.key, 
+    required this.text,
     this.svg,
-    required this.onPressed});
+    required this.onPressed, this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,7 @@ class ElevatedButtonWidget extends StatelessWidget {
             ),
           ),
           onPressed: onPressed,
-           label: Text(text, style: textTheme.tabText.copyWith(
+           label: Text(text, style: (textStyle ?? textTheme.tabText).copyWith(
           color: colorScheme.secondary
         )),
           icon: svg ?? const SizedBox.shrink(),
