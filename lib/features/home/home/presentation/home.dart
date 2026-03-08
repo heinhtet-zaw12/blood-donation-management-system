@@ -1,8 +1,9 @@
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/app_bar.dart';
 import 'package:blood_donation_management_system/core/widgets/elevated_button_widget.dart';
-import 'package:blood_donation_management_system/features/home/dashboard/widgets/blood_availability_card.dart';
-import 'package:blood_donation_management_system/features/home/dashboard/widgets/home_card.dart';
+import 'package:blood_donation_management_system/features/home/data/blood_availability_data.dart';
+import 'package:blood_donation_management_system/features/home/home/widgets/blood_availability_card.dart';
+import 'package:blood_donation_management_system/features/home/home/widgets/home_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -92,6 +93,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 30),
                 color: customColors.darkPrimary,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       "Blood Availability",
@@ -104,7 +106,8 @@ class _HomeState extends State<Home> {
                       style: textTheme.tabText.copyWith(color: customColors.background),
                     ),
                     const SizedBox(height: 30,),
-                    BloodAvailabilityCard()
+                    BloodAvailabilityCard(bloodAvailabilityData: bloodAvailability1, crossAsixCount: 3,),
+                    BloodAvailabilityCard(bloodAvailabilityData: bloodAvailability2, crossAsixCount: 2)
                   ],
                 ))
             ],

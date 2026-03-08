@@ -1,6 +1,7 @@
 import 'package:blood_donation_management_system/features/home/model/blood_availability_model.dart';
 
-final List<BloodAvailabilityModel> bloodAvailability = [
+
+final List<BloodAvailabilityModel> bloodAvailability1 = [
   BloodAvailabilityModel(
     bloodType: "A+", 
     availabilityCount: 1250, 
@@ -29,7 +30,10 @@ final List<BloodAvailabilityModel> bloodAvailability = [
     BloodAvailabilityModel(
     bloodType: "AB-", 
     availabilityCount: 180, 
-    availability: true),
+    availability: true)
+];
+
+final List<BloodAvailabilityModel> bloodAvailability2 = [
 
     BloodAvailabilityModel(
     bloodType: "O+", 
