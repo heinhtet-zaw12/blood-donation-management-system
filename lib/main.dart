@@ -15,15 +15,15 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    // return MaterialApp.router(
-    //   debugShowCheckedModeBanner: false,
-    //   theme: ThemeConst.getTheme(),
-    //   routerConfig:  router,
-    // );
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeConst.getTheme(),
-      home:  LoginScreen(),
+      routerConfig:  router,
     );
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   theme: ThemeConst.getTheme(),
+    //   home:  LoginScreen(),
+    // );
   }
 }

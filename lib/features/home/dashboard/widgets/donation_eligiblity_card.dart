@@ -64,13 +64,13 @@ class _DonationEligibilityCardState
 
   @override
   Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
     return Container(
       padding: const EdgeInsets.all(24),
       height: 346,
-      decoration:  boxDecoration(cardColor: themeData.colorScheme.secondary, shadowColor: themeData.colorScheme.primary),
+      decoration:  boxDecoration(cardColor:colorScheme.secondary, shadowColor: customColors.disabled),
       child: Column(
         children: [
           Row(
@@ -117,7 +117,7 @@ class _DonationEligibilityCardState
                         Text(
                           _countAnimation.value.toString(),
                           style: textTheme.title.copyWith(
-                            color: themeData.colorScheme.primary
+                            color: colorScheme.primary
                           ),
                         ),
                         Text(

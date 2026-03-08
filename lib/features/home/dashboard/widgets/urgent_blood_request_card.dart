@@ -9,14 +9,14 @@ class UrgentRequestCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
     return Container(
       padding: const EdgeInsets.all(16),
       height: 274,
       width: 382,
-      decoration: boxDecoration(cardColor: themeData.colorScheme.secondary, shadowColor:  themeData.colorScheme.primary),
+      decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: customColors.disabled),
       child: Padding(
         padding: const EdgeInsets.only(left: 20),
         child: Column(
@@ -43,14 +43,14 @@ class UrgentRequestCard extends StatelessWidget {
                 Container(
                   width: 120,
                   height: 159,
-                  decoration: boxDecoration(cardColor: themeData.colorScheme.primary, shadowColor:  themeData.colorScheme.primary),
+                  decoration: boxDecoration(cardColor:colorScheme.primary, shadowColor:  colorScheme.primary),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("5",
-                          style: textTheme.title.copyWith(color: themeData.colorScheme.secondary)),
+                          style: textTheme.title.copyWith(color:colorScheme.secondary)),
                       Text("Units", style: textTheme.bodyRegular.copyWith(
-                        color:  themeData.colorScheme.secondary
+                        color:  colorScheme.secondary
                       ))
                     ],
                   ),
