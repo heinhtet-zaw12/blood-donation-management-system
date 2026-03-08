@@ -1,3 +1,5 @@
+import 'package:blood_donation_management_system/core/widgets/app_bar.dart';
+import 'package:blood_donation_management_system/core/widgets/side_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -6,9 +8,10 @@ import '../../../../core/theme/theme_getter.dart';
 import '../widgets/drawerItem.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key, required this.shell});
+  const HomeView({super.key, required this.shell, this.logo, this.barIcon});
   final StatefulNavigationShell shell;
-
+  final String? logo;
+  final String? barIcon;
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -25,40 +28,7 @@ class _HomeViewState extends State<HomeView> {
     StatefulNavigationShell shell = widget.shell;
     return Scaffold(
       backgroundColor: customColors.background,
-      appBar: AppBar(
-        leadingWidth: 160,
-        backgroundColor: Colors.transparent,
-        surfaceTintColor: Colors.transparent,
-        scrolledUnderElevation: 0,
-        leading:  Padding(
-          padding: const EdgeInsets.only(left: 40),
-          child: SizedBox(
-            width: 120,
-            child: SvgPicture.asset(
-              width: 120,
-                height: 50,
-                "assets/images/Logo.svg",
-            ),
-          ),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Builder(
-              builder: (context) => IconButton(
-                icon: SvgPicture.asset(
-                  width: 35,
-                  height: 35,
-                  "assets/images/bars_icon.svg",
-                ),
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-              ),
-            ),
-          )
-        ],
-      ),
+      appBar: AppBarWidget(),
       body:  shell,
       bottomNavigationBar: NavigationBar(
           backgroundColor:  colorScheme.primary,
@@ -140,53 +110,7 @@ class _HomeViewState extends State<HomeView> {
                   )),
             ), label: "Profile"),
           ]),
-        endDrawer: Drawer(
-         width: MediaQuery.of(context).size.width * 0.9,
-         backgroundColor: colorScheme.secondary,
-         child: SafeArea(
-           child: Column(
-             crossAxisAlignment:  CrossAxisAlignment.start,
-             children: [
-               const SizedBox(height: 40),
-               // Close Button
-               Padding(
-                 padding: const EdgeInsets.only(left: 24),
-                 child: IconButton(
-                   icon: SvgPicture.asset(
-                     width: 20,
-                     height: 20,
-                     "assets/images/close_icon.svg",
-                   ) , onPressed: () {
-                   Navigator.pop(context);
-                 },),
-               ),
-               const SizedBox(height: 40),
-                    // Drawer Items
-                DrawerItem(svg:  SvgPicture.asset(
-                  width: 30,
-                  height: 30,
-                  "assets/images/home_icon.svg",
-                ),text:  "Home"),
-                DrawerItem(svg:  SvgPicture.asset(
-                  width: 30,
-                  height: 30,
-                  "assets/images/announcment_icon.svg",
-                ),text:  "Announcements"),
-                DrawerItem(svg:  SvgPicture.asset(
-                  width: 30,
-                  height: 30,
-                  "assets/images/logout_icon.svg",
-                ),text:  "Log Out"),
-                DrawerItem(svg:  SvgPicture.asset(width: 30, height: 30, "assets/images/setting_icon.svg",),text:  "Settings"),
-               const Spacer(),
-               Padding(
-                padding: EdgeInsets.only(bottom: 20, left: 24),
-                child: Text("www.bloodlife.com", style: textTheme.tabText.copyWith(
-                  color: customColors.darkPrimary
-                )
-               ,),),
-                  ],),
-                ),
-       ));
+        endDrawer: SideDrawer(isDashboard: true)
+       );
   }
 }
