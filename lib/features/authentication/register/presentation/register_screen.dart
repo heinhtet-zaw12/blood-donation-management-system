@@ -196,7 +196,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Weight (kg)",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "Weight kg",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(hintText: "Weight kg",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! ,
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),

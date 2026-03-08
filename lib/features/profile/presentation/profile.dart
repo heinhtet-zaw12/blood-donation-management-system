@@ -1,4 +1,9 @@
+import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../core/theme/theme_getter.dart';
+import '../../../core/widgets/input_decoration.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -11,191 +16,259 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      backgroundColor: const Color(0xffE6DADA),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              // Header
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Row(
-                    children: [
-                      Icon(Icons.favorite, color: Color(0xffFF2D3D)),
-                      SizedBox(width: 6),
-                      Text(
-                        "Bloodlife",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: Color(0xffFF2D3D),
-                        ),
-                      )
-                    ],
-                  ),
+    final colorScheme = Theme.of(context).colorScheme;
+    final customColors = context.colors;
+    final textTheme = context.bdmsText;
+    return SafeArea(
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Column(
+          children: [
+            // PROFILE CARD
+             SizedBox(height: 10,),
+             Container(
+            width: 352,
+             height: 338,
+             decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: customColors.disabled),
+             child: Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: [
+                 // Avatar
+                 Stack(
+                   children: [
+                     SizedBox(
+                       width:130,
+                       height: 130,
+                       child: const CircleAvatar(
+                         radius: 55,
+                          backgroundImage: NetworkImage(
+                              "https://images.pexels.com/photos/29914634/pexels-photo-29914634.jpeg"),
+                       ),
+                     ),
+                     Positioned(
+                       bottom: 0,
+                       right: 15,
+                       child: Container(
+                         padding: const EdgeInsets.all(6),
+                         decoration:  BoxDecoration(
+                           shape: BoxShape.circle,
+                           color:colorScheme.primary,
+                         ),
+                         child: SvgPicture.asset(
+                         "assets/images/Edit_icon.svg",
+                         width: 18,
+                           colorFilter: ColorFilter.mode(colorScheme.secondary,BlendMode.srcIn),
+                       ),
+                       ),
+                     )
+                   ],
+                 ),
+                 const SizedBox(height: 20),
 
-                  Icon(Icons.menu, color: Colors.brown)
+                 //User Name
+                 Text(
+                   "User Name : Zar Ni",
+                   style:textTheme.bodyRegular.copyWith(
+                     color:  customColors.darkPrimary,
+                   ) ,
+                 ),
+
+                 const SizedBox(height: 20),
+                  Text(
+                   "User ID : 000255",
+                   style: textTheme.bodyRegular.copyWith(
+                     fontWeight: FontWeight.w400,
+                     color: customColors.darkPrimary
+                   ),
+                 ),
+                 const SizedBox(height: 5),
+
+                 //Blood type
+                 Text(
+                   "Blood-type : B+",
+                   style: textTheme.bodyRegular.copyWith(
+                       fontWeight: FontWeight.w400,
+                       color: customColors.darkPrimary
+                   ),
+                 ),
+               ],
+             ),
+           ),
+            const SizedBox(height: 20),
+
+            // DONATION INFO
+            Container(
+              width: 352,
+              height: 229,
+              decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: customColors.disabled),
+              child:  Column(
+                mainAxisAlignment:  MainAxisAlignment.center,
+                children:  [
+                  Text("Last Donation : 28 Jan 2026",
+                    style:textTheme.bodyRegular.copyWith(
+                      fontWeight:  FontWeight.w400,
+                      color:  customColors.darkPrimary,
+                    ) ,
+                  ),
+                  SizedBox(height: 8),
+
+                  Text("Birth of Date : 14 Feb 2025",
+                    style:textTheme.bodyRegular.copyWith(
+                      fontWeight:  FontWeight.w400,
+                      color:  customColors.darkPrimary,
+                    ) ,
+                  ),
+                  SizedBox(height: 8),
+
+                  Text("Weight : 86 kg", style:textTheme.bodyRegular.copyWith(
+                    fontWeight:  FontWeight.w400,
+                    color:  customColors.darkPrimary,
+                  ) ,),
+                  SizedBox(height: 8),
+
+                  Text("Last blood pressure : 120/80 mmHg",
+                    style:textTheme.bodyRegular.copyWith(
+                      fontWeight:  FontWeight.w400,
+                      color:  customColors.darkPrimary,
+                    ) ,
+                  ),
                 ],
               ),
+            ),
 
-              const SizedBox(height: 30),
+            const SizedBox(height: 20),
 
-              /// PROFILE CARD
-              _card(
+            // User Info
+            Container(
+              width: 352,
+              height: 424,
+              decoration:  boxDecoration(cardColor: colorScheme.secondary, shadowColor:customColors.disabled),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment:  MainAxisAlignment.center,
                   children: [
-
-                    /// Avatar
-                    Stack(
-                      alignment: Alignment.bottomRight,
-                      children: [
-
-                        const CircleAvatar(
-                          radius: 55,
-                          backgroundImage: NetworkImage(
-                              "https://i.pravatar.cc/150?img=3"),
-                        ),
-
-                        Container(
-                          padding: const EdgeInsets.all(6),
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color(0xffFF2D3D),
-                          ),
-                          child: const Icon(
-                            Icons.edit,
-                            size: 18,
-                            color: Colors.white,
-                          ),
-                        )
-                      ],
-                    ),
-
-                    const SizedBox(height: 15),
-
-                    const Text(
-                      "User Name : Zar Ni",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff6B0000),
+                    //Address
+                     Text("Address" , style:  textTheme.bodyRegular.copyWith(color:  customColors.darkPrimary , fontWeight: FontWeight.w400),),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      height: 55,
+                      child: TextFormField(
+                        readOnly: true,
+                        decoration: buildInputDecoration(hintText: "No.5 First Floor , Hteet Tan 5 Stree, kyeemyindaing, Yangon",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          "assets/images/Edit_icon.svg",
+                          width: 15,
+                        ),),
                       ),
                     ),
 
-                    const SizedBox(height: 10),
-
-                    const Text(
-                      "User ID : 000255",
-                      style: TextStyle(color: Color(0xff6B0000)),
-                    ),
-
-                    const SizedBox(height: 5),
-
-                    const Text(
-                      "Blood-type : B+",
-                      style: TextStyle(color: Color(0xff6B0000)),
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              /// DONATION INFO
-              _card(
-                child: Column(
-                  children: const [
-
-                    Text("Last Donation : 28 Jan 2026"),
-                    SizedBox(height: 8),
-
-                    Text("Birth of Date : 14 Feb 2025"),
-                    SizedBox(height: 8),
-
-                    Text("Weight : 86 kg"),
-                    SizedBox(height: 8),
-
-                    Text("Last blood pressure : 120/80 mmHg"),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              /// CONTACT CARD
-              _card(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-
-                    const Text("Address"),
-
-                    const SizedBox(height: 12),
-
+                    //Medical Conditions
+                    SizedBox(height: 20,),
+                    Text("Medical Conditions" , style:  textTheme.bodyRegular.copyWith(color:  customColors.darkPrimary , fontWeight:  FontWeight.w400),),
+                    const SizedBox(height: 12,),
                     Row(
                       children: [
-
                         Expanded(
-                          child: _dropdownBox("None"),
+                          child:  SizedBox(
+                            height: 55,
+                            child: TextFormField(
+                              readOnly: true,
+                              decoration: buildInputDecoration(hintText: "None",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                                "assets/images/drop_down.svg",
+                              ),),
+                            ),
+                          ),
                         ),
-
                         const SizedBox(width: 10),
-
                         Expanded(
-                          child: _dropdownBox("Male"),
+                          child:  SizedBox(
+                            height: 55,
+                            child: TextFormField(
+                              readOnly: true,
+                              decoration: buildInputDecoration(hintText: "Male",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                                "assets/images/drop_down.svg",
+                              ),),
+                            ),
+                          ),
                         )
                       ],
                     ),
-
                     const SizedBox(height: 20),
 
-                    const Text("Phone Number"),
+                    //Phone Number
+                    Text("Phone Number" , style:  textTheme.bodyRegular.copyWith(color:  customColors.darkPrimary , fontWeight:  FontWeight.w400),),
+                    const SizedBox(height: 12,),
+                    SizedBox(
+                      height: 55,
+                      child: TextFormField(
+                        readOnly: true,
+                        decoration: buildInputDecoration(hintText: "+959 965243876",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          "assets/images/Edit_icon.svg",
+                          width: 15,
+                        ),),
+                      ),
+                    ),
 
-                    const SizedBox(height: 10),
-
-                    _inputBox("+959 987654"),
                   ],
                 ),
               ),
+            ),
 
-              const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-              /// MEDICAL CARD
-              _card(
+            // MEDICAL CARD
+            Container(
+              width: 352,
+              height: 289,
+              decoration:  boxDecoration(cardColor: colorScheme.secondary, shadowColor:customColors.disabled),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment:  MainAxisAlignment.center,
                   children: [
+                    //Address
+                    Text("Allergies" , style:  textTheme.bodyRegular.copyWith(color:  customColors.darkPrimary , fontWeight: FontWeight.w400),),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      height: 55,
+                      child: TextFormField(
+                        readOnly: true,
+                        decoration: buildInputDecoration(hintText: "Seafood",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          "assets/images/Edit_icon.svg",
+                          width: 15,
+                        ),),
+                      ),
+                    ),
+                    SizedBox(height: 30,),
+                    //Phone Number
+                    Text("Current Medications" , style:  textTheme.bodyRegular.copyWith(color:  customColors.darkPrimary , fontWeight:  FontWeight.w400),),
+                    const SizedBox(height: 12,),
+                    SizedBox(
+                      height: 55,
+                      child: TextFormField(
+                        readOnly: true,
+                        decoration: buildInputDecoration(hintText: "I'm takign through medicine.",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          "assets/images/Edit_icon.svg",
+                          width: 15,
+                        ),),
+                      ),
+                    ),
 
-                    const Text("Allergies"),
-
-                    const SizedBox(height: 10),
-
-                    _inputBox("Seafood"),
-
-                    const SizedBox(height: 20),
-
-                    const Text("Current Medications"),
-
-                    const SizedBox(height: 10),
-
-                    _inputBox("I am taking cough medicine."),
                   ],
                 ),
               ),
+            ),
 
-              const SizedBox(height: 40),
-            ],
-          ),
+
+            const SizedBox(height: 40),
+          ],
         ),
       ),
     );
   }
 
-  /// CARD STYLE
   Widget _card({required Widget child}) {
     return Container(
       width: double.infinity,
