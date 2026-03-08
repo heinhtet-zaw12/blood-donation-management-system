@@ -1,6 +1,7 @@
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/app_bar.dart';
 import 'package:blood_donation_management_system/core/widgets/elevated_button_widget.dart';
+import 'package:blood_donation_management_system/core/widgets/side_drawer.dart';
 import 'package:blood_donation_management_system/features/home/data/blood_availability_data.dart';
 import 'package:blood_donation_management_system/features/home/home/widgets/blood_availability_card.dart';
 import 'package:blood_donation_management_system/features/home/home/widgets/home_card.dart';
@@ -25,6 +26,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: customColors.background,
       appBar: AppBarWidget(logo: "assets/images/Logo_white.svg", barIcon: "assets/images/bars_white_icon.svg",bgColor: colorScheme.primary,),
+      endDrawer: SideDrawer(isDashboard: false),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

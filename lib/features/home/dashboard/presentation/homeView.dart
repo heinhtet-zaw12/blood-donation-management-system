@@ -1,4 +1,5 @@
 import 'package:blood_donation_management_system/core/widgets/app_bar.dart';
+import 'package:blood_donation_management_system/core/widgets/side_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -109,53 +110,7 @@ class _HomeViewState extends State<HomeView> {
                   )),
             ), label: "Profile"),
           ]),
-        endDrawer: Drawer(
-         width: MediaQuery.of(context).size.width * 0.9,
-         backgroundColor: colorScheme.secondary,
-         child: SafeArea(
-           child: Column(
-             crossAxisAlignment:  CrossAxisAlignment.start,
-             children: [
-               const SizedBox(height: 40),
-               // Close Button
-               Padding(
-                 padding: const EdgeInsets.only(left: 24),
-                 child: IconButton(
-                   icon: SvgPicture.asset(
-                     width: 20,
-                     height: 20,
-                     "assets/images/close_icon.svg",
-                   ) , onPressed: () {
-                   Navigator.pop(context);
-                 },),
-               ),
-               const SizedBox(height: 40),
-                    // Drawer Items
-                DrawerItem(svg:  SvgPicture.asset(
-                  width: 30,
-                  height: 30,
-                  "assets/images/home_icon.svg",
-                ),text:  "Home"),
-                DrawerItem(svg:  SvgPicture.asset(
-                  width: 30,
-                  height: 30,
-                  "assets/images/announcment_icon.svg",
-                ),text:  "Announcements"),
-                DrawerItem(svg:  SvgPicture.asset(
-                  width: 30,
-                  height: 30,
-                  "assets/images/logout_icon.svg",
-                ),text:  "Log Out"),
-                DrawerItem(svg:  SvgPicture.asset(width: 30, height: 30, "assets/images/setting_icon.svg",),text:  "Settings"),
-               const Spacer(),
-               Padding(
-                padding: EdgeInsets.only(bottom: 20, left: 24),
-                child: Text("www.bloodlife.com", style: textTheme.tabText.copyWith(
-                  color: customColors.darkPrimary
-                )
-               ,),),
-                  ],),
-                ),
-       ));
+        endDrawer: SideDrawer(isDashboard: true)
+       );
   }
 }
