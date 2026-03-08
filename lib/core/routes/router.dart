@@ -63,7 +63,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: '/profile',
-              builder: (context, state) => Profile(),
+              builder: (context, state) => ProfileScreen(),
             ),
           ],
         ),

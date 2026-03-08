@@ -50,14 +50,14 @@ class _BloodPressureCardState extends State<BloodPressureCard>
 
   @override
   Widget build(BuildContext context) {
-    final themeData = Theme.of(context);
+    final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 30),
       width: 240,
       height: 250,
-      decoration: boxDecoration(cardColor: themeData.colorScheme.secondary, shadowColor: themeData.colorScheme.primary),
+      decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: customColors.disabled),
       child: AnimatedBuilder(
         animation: _controller,
         builder: (context, child) {
@@ -73,13 +73,13 @@ class _BloodPressureCardState extends State<BloodPressureCard>
               Text(
                 "${_systolicAnimation.value}/${_diastolicAnimation.value}",
                 style: textTheme.title.copyWith(
-                  color: themeData.colorScheme.primary
+                  color: colorScheme.primary
                 ),
               ),
               Text(
                 "mmHg",
                 style: textTheme.bodyRegular.copyWith(
-                  color: themeData.colorScheme.primary
+                  color: colorScheme.primary
                 ),
               ),
             ],

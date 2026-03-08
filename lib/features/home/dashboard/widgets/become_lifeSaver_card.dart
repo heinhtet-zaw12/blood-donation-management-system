@@ -22,7 +22,7 @@ class _BecomeLifesaverCardState extends State<BecomeLifesaverCard> {
       padding: const EdgeInsets.all(16),
       height: 247,
       width: 382,
-      decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: colorScheme.primary),
+      decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: customColors.disabled),
       child: Column(
         mainAxisAlignment:  MainAxisAlignment.center,
         children: [
