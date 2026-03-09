@@ -1,12 +1,22 @@
 # blood_donation_management_system
 
-A new Flutter project.
+A Flutter mobile application that helps manage blood donations, donor records, and appointment scheduling.  
+The app allows users to request blood, donate blood, and track donation history.
 
-## Getting Started
+## Features
+- User Authentication (Login / Register)
+- Blood Donation Request
+- Donor Profile Management
+- Appointment Scheduling
+- Medical Record Tracking
+- Responsive UI built with Flutter
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
+ ## Tech Stack
+- Flutter
+- Dart
+- REST API
+- Clean Architecture
+- SVG assets
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
