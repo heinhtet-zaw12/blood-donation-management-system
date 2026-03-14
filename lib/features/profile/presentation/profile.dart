@@ -156,7 +156,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 55,
                       child: TextFormField(
                         readOnly: true,
-                        decoration: buildInputDecoration(hintText: "No.5 First Floor , Hteet Tan 5 Stree, kyeemyindaing, Yangon",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                        style: TextStyle(
+                            color: customColors.darkPrimary
+                          ),
+                        decoration: buildInputDecoration(
+                          context: context,
+                          hintText: "No.5 First Floor , Hteet Tan 5 Stree, kyeemyindaing, Yangon",
+                          hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, 
+                          fontWeight: FontWeight.w400),  
+                          svg:  SvgPicture.asset(
                           "assets/images/Edit_icon.svg",
                           width: 15,
                         ),),
@@ -174,7 +182,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: 55,
                             child: TextFormField(
                               readOnly: true,
-                              decoration: buildInputDecoration(hintText: "None",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                              style: TextStyle(
+                                color: customColors.darkPrimary
+                              ),
+                              decoration: buildInputDecoration(
+                                context: context,
+                                hintText: "None",
+                                hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  
+                                svg:  SvgPicture.asset(
                                 "assets/images/drop_down.svg",
                               ),),
                             ),
@@ -184,9 +199,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Expanded(
                           child:  SizedBox(
                             height: 55,
+                            
                             child: TextFormField(
                               readOnly: true,
-                              decoration: buildInputDecoration(hintText: "Male",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                              style: TextStyle(
+                                color: customColors.darkPrimary
+                              ),
+                              decoration: buildInputDecoration(
+                                context: context,
+                                hintText: "Male",
+                                hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  
+                                svg:  SvgPicture.asset(
                                 "assets/images/drop_down.svg",
                               ),),
                             ),
@@ -203,7 +226,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 55,
                       child: TextFormField(
                         readOnly: true,
-                        decoration: buildInputDecoration(hintText: "+959 965243876",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                        style: TextStyle(
+                            color: customColors.darkPrimary
+                          ),
+                        decoration: buildInputDecoration(
+                          hintText: "+959 965243876",
+                          context: context,
+                          hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  
+                          svg:  SvgPicture.asset(
                           "assets/images/Edit_icon.svg",
                           width: 15,
                         ),),
@@ -235,7 +265,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 55,
                       child: TextFormField(
                         readOnly: true,
-                        decoration: buildInputDecoration(hintText: "Seafood",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                        style: TextStyle(
+                            color: customColors.darkPrimary
+                          ),
+                        decoration: buildInputDecoration(
+                          hintText: "Seafood",
+                          context: context,
+                          hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  
+                          svg:  SvgPicture.asset(
                           "assets/images/Edit_icon.svg",
                           width: 15,
                         ),),
@@ -249,7 +286,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       height: 55,
                       child: TextFormField(
                         readOnly: true,
-                        decoration: buildInputDecoration(hintText: "I'm takign through medicine.",hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                        style: TextStyle(
+                            color: customColors.darkPrimary
+                          ),
+                        decoration: buildInputDecoration(
+                          hintText: "I'm takign through medicine.",
+                          context: context,
+                          hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  
+                          svg:  SvgPicture.asset(
                           "assets/images/Edit_icon.svg",
                           width: 15,
                         ),),
