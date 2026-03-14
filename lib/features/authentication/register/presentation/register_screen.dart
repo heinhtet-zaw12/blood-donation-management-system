@@ -88,7 +88,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("First name",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "First name",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "First name",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
@@ -99,7 +103,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Email address", customColors.textPrimary!, textTheme) ,
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "Email address",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Email address",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
@@ -110,7 +118,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Phone number",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "Phone number",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Phone number",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
@@ -130,7 +142,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           //   }
                           //   return null;
                           // },
-                          decoration: buildInputDecoration(hintText: "dd/mm/yy",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "dd/mm/yy",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/calender_icon.svg",
                             width: 18,
                             colorFilter: ColorFilter.mode(colorScheme.primary, BlendMode.srcIn),
@@ -145,7 +161,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           initialValue: selectedGender,
                           hint: const Text('Select...'),
                           icon:  SvgPicture.asset("assets/images/drop_down.svg",width: 15,height: 15,),
-                          decoration: buildInputDecoration(hintText: "dd/mm/yy",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! ,
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "dd/mm/yy",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
                           ),
                           items: genderOptions.map((String gender) {
                             return DropdownMenuItem<String>(
@@ -173,7 +192,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             width: 15,
                             height: 15,
                           ),
-                          decoration: buildInputDecoration(hintText: "dd/mm/yy",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! ,
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "dd/mm/yy",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
                           ),
                           items: bloodGroups.map((String group) {
                             return DropdownMenuItem<String>(
@@ -196,7 +218,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Weight (kg)",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "Weight kg",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! ,
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Weight kg",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
                             svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
@@ -208,7 +233,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Address",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "Address",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Address",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
@@ -220,7 +249,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         const SizedBox(height: 6),
                         TextFormField(
                           obscureText: true,
-                          decoration: buildInputDecoration(hintText: "Password",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Password",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
@@ -232,7 +265,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         const SizedBox(height: 6),
                         TextFormField(
                           obscureText: true,
-                          decoration: buildInputDecoration(hintText: "Confirm password",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Confirm password",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),

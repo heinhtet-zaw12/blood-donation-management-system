@@ -4,12 +4,13 @@ import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/features/authentication/register/presentation/register_screen.dart';
 import 'package:blood_donation_management_system/features/home/home/presentation/home.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'features/Home/Dashboard/presentation/dashboard.dart';
 import 'features/authentication/Login/presentation/login_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
