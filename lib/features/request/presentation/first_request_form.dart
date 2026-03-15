@@ -2,19 +2,18 @@ import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/input_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/label_text_widget.dart';
-import 'package:blood_donation_management_system/features/donation/donate/widgets/next_button.dart';
-import 'package:blood_donation_management_system/features/donation/donate/widgets/previous_button.dart';
+import 'package:blood_donation_management_system/features/donation/widgets/next_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SecondDonateForm extends StatefulWidget {
-  const SecondDonateForm({super.key});
+class FirstRequestForm extends StatefulWidget {
+  const FirstRequestForm({super.key});
 
   @override
-  State<SecondDonateForm> createState() => _SecondDonateFormState();
+  State<FirstRequestForm> createState() => _FirstRequestFormState();
 }
 
-class _SecondDonateFormState extends State<SecondDonateForm> {
+class _FirstRequestFormState extends State<FirstRequestForm> {
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -22,28 +21,11 @@ class _SecondDonateFormState extends State<SecondDonateForm> {
     final textTheme = context.bdmsText;
 
     final _formKey = GlobalKey<FormState>();
+    final _patientNameController = TextEditingController();
     final _hospitalNameController = TextEditingController();
-    final TextEditingController _dateController = TextEditingController();
-    DateTime? selectedDate;
+    final _patientAddressController = TextEditingController();
     String? selectedValue;
-    List<String> timeSlot = ['9 : 00 AM', '10 : 00 AM', '11 : 00 AM', '1 : 00 PM', '2 : 00 PM', '3 : 00 PM', '4 : 00 PM'];
-
-    Future<void> _selectDate(BuildContext context) async {
-      DateTime? pickedDate = await showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2100),
-      );
-
-      if (pickedDate != null) {
-        setState(() {
-          selectedDate = pickedDate;
-          _dateController.text =
-              "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
-        });
-      }
-    }
+    List<String> bloodType = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
     return Padding(
             padding: const EdgeInsets.all(20),
@@ -63,25 +45,21 @@ class _SecondDonateFormState extends State<SecondDonateForm> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      //Preferred Date
+                      //Patient name
                       buildLabel(
-                        "Preferred date: ",
+                        "Patient name: ",
                         customColors.textPrimary!,
                         textTheme,
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        controller: _dateController,
-                        readOnly: true,
-                          onTap: () {
-                            _selectDate(context);
-                          },
+                        controller: _patientNameController,
                         style: textTheme.tabText.copyWith(color: customColors.darkPrimary),
                         decoration: buildInputDecoration(
                           context: context,
-                          hintText: "dd/mm/yy",
+                          hintText: "Enter Patient Name",
                           svg: SvgPicture.asset(
-                            "assets/images/calender_icon1.svg",
+                            "assets/images/Edit_icon.svg",
                             width: 18,
                           ),
                         ),
@@ -91,14 +69,14 @@ class _SecondDonateFormState extends State<SecondDonateForm> {
             
                       //Blood Type
                       buildLabel(
-                        "Preferred Time: ",
+                        "Blood-type: ",
                         customColors.textPrimary!,
                         textTheme,
                       ),
                       const SizedBox(height: 10),
                       DropdownButtonFormField<String>(
                         value: selectedValue,
-                        items: timeSlot.map((String value) {
+                        items: bloodType.map((String value) {
                           return DropdownMenuItem<String>(
                             value: value,
                             child: Text(
@@ -109,7 +87,7 @@ class _SecondDonateFormState extends State<SecondDonateForm> {
                         }).toList(),
                         decoration: buildInputDecoration(
                           context: context,
-                          hintText: "Choose Preferred Time",
+                          hintText: "Choose Blood Type",
                           svg: SvgPicture.asset(
                             "assets/images/drop_down.svg",
                             width: 16,
@@ -124,9 +102,9 @@ class _SecondDonateFormState extends State<SecondDonateForm> {
             
                       const SizedBox(height: 15),
             
-                      //Contact Number
+                      //Hospital Name
                       buildLabel(
-                        "Hospital: ",
+                        "Hospital name: ",
                         customColors.textPrimary!,
                         textTheme,
                       ),
@@ -136,7 +114,29 @@ class _SecondDonateFormState extends State<SecondDonateForm> {
                         style: textTheme.tabText.copyWith(color: customColors.darkPrimary),
                         decoration: buildInputDecoration(
                           context: context,
-                          hintText: "Enter hospital name",
+                          hintText: "Enter Hospital Name",
+                          svg: SvgPicture.asset(
+                            "assets/images/Edit_icon.svg",
+                            width: 18,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 15),
+            
+                      //Address
+                      buildLabel(
+                        "Address: ",
+                        customColors.textPrimary!,
+                        textTheme,
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: _patientAddressController,
+                        style: textTheme.tabText.copyWith(color: customColors.darkPrimary),
+                        decoration: buildInputDecoration(
+                          context: context,
+                          hintText: "Enter Address",
                           svg: SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
@@ -145,14 +145,11 @@ class _SecondDonateFormState extends State<SecondDonateForm> {
                       ),
             
                       const SizedBox(height: 30),
-            
+
                       //Next Button
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween ,
-                        children: [
-                          PreviousButton(context: context),
-                          NextButton(context: context)
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 75),
+                        child: NextButton(context: context),
                       )
                     ],
                   ),

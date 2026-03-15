@@ -1,8 +1,8 @@
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/label_text_widget.dart';
-import 'package:blood_donation_management_system/features/donation/donate/widgets/previous_button.dart';
-import 'package:blood_donation_management_system/features/donation/donate/widgets/submit_button.dart';
+import 'package:blood_donation_management_system/features/donation/widgets/previous_button.dart';
+import 'package:blood_donation_management_system/features/donation/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

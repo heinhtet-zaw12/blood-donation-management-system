@@ -2,7 +2,7 @@ import 'package:blood_donation_management_system/core/widgets/box_decoration.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../../core/theme/theme_getter.dart';
+import '../../../core/theme/theme_getter.dart';
 
 class Appointment extends StatefulWidget {
   const Appointment({super.key});

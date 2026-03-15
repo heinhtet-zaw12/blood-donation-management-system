@@ -1,32 +1,30 @@
-
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/input_decoration.dart';
-import 'package:blood_donation_management_system/features/donation/donate/widgets/next_button.dart';
+import 'package:blood_donation_management_system/core/widgets/label_text_widget.dart';
+import 'package:blood_donation_management_system/features/donation/widgets/next_button.dart';
+import 'package:blood_donation_management_system/features/donation/widgets/previous_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/widgets/label_text_widget.dart';
-
-class FirstDonateForm extends StatefulWidget {
-  const FirstDonateForm({super.key});
+class ThirdRequestForm extends StatefulWidget {
+  const ThirdRequestForm({super.key});
 
   @override
-  State<FirstDonateForm> createState() => _FirstDonateFormState();
+  State<ThirdRequestForm> createState() => _ThirdRequestFormState();
 }
 
-final _formKey = GlobalKey<FormState>();
-    final _usernameController = TextEditingController();
-    final _contactNumController = TextEditingController();
-    String? selectedValue;
-    List<String> bloodType = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-
-class _FirstDonateFormState extends State<FirstDonateForm> {
+class _ThirdRequestFormState extends State<ThirdRequestForm> {
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
+
+    final _formKey = GlobalKey<FormState>();
+    final _relationToPatientController = TextEditingController();
+    final _contactNumberController = TextEditingController();
+    final _reasonForRequestController = TextEditingController();
 
     return Padding(
             padding: const EdgeInsets.all(20),
@@ -46,19 +44,19 @@ class _FirstDonateFormState extends State<FirstDonateForm> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      //User name
+                      //Relationship to patient
                       buildLabel(
-                        "User name: ",
+                        "Relationship to patient : ",
                         customColors.textPrimary!,
                         textTheme,
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        controller: _usernameController,
+                        controller: _relationToPatientController,
                         style: textTheme.tabText.copyWith(color: customColors.darkPrimary),
                         decoration: buildInputDecoration(
                           context: context,
-                          hintText: "Enter username",
+                          hintText: "Enter Your Relationship to Patient",
                           svg: SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
@@ -68,54 +66,41 @@ class _FirstDonateFormState extends State<FirstDonateForm> {
             
                       const SizedBox(height: 15),
             
-                      //Blood Type
+                      //Contact number
                       buildLabel(
-                        "Blood-type: ",
-                        customColors.textPrimary!,
-                        textTheme,
-                      ),
-                      const SizedBox(height: 10),
-                      DropdownButtonFormField<String>(
-                        value: selectedValue,
-                        items: bloodType.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(
-                              value,
-                              style: textTheme.tabText.copyWith(color: customColors.darkPrimary),
-                            ),
-                          );
-                        }).toList(),
-                        decoration: buildInputDecoration(
-                          context: context,
-                          hintText: "Choose Blood Type",
-                          svg: SvgPicture.asset(
-                            "assets/images/drop_down.svg",
-                            width: 16,
-                          ),
-                        ),
-                        onChanged: (newValue) {
-                          setState(() {
-                            selectedValue = newValue;
-                          });
-                        },
-                      ),
-            
-                      const SizedBox(height: 15),
-            
-                      //Contact Number
-                      buildLabel(
-                        "Contact Number: ",
+                        "Contact number : ",
                         customColors.textPrimary!,
                         textTheme,
                       ),
                       const SizedBox(height: 10),
                       TextFormField(
-                        controller: _contactNumController,
+                        controller: _contactNumberController,
                         style: textTheme.tabText.copyWith(color: customColors.darkPrimary),
                         decoration: buildInputDecoration(
                           context: context,
-                          hintText: "Enter contact number",
+                          hintText: "Enter Contact Number",
+                          svg: SvgPicture.asset(
+                            "assets/images/Edit_icon.svg",
+                            width: 18,
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(height: 15),
+            
+                      //Reason for request
+                      buildLabel(
+                        "Reason for request :",
+                        customColors.textPrimary!,
+                        textTheme,
+                      ),
+                      const SizedBox(height: 10),
+                      TextFormField(
+                        controller: _reasonForRequestController,
+                        style: textTheme.tabText.copyWith(color: customColors.darkPrimary),
+                        decoration: buildInputDecoration(
+                          context: context,
+                          hintText: "Enter Reason for request",
                           svg: SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
@@ -124,12 +109,15 @@ class _FirstDonateFormState extends State<FirstDonateForm> {
                       ),
             
                       const SizedBox(height: 30),
-            
-                      //Next Button
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 75),
-                        child: NextButton(context: context),
-                      )
+
+                      //Previous & Next Button
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          PreviousButton(context: context),
+                          NextButton(context: context),
+                        ],
+                      ),
                     ],
                   ),
                 ),
