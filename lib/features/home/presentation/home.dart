@@ -3,8 +3,8 @@ import 'package:blood_donation_management_system/core/widgets/app_bar.dart';
 import 'package:blood_donation_management_system/core/widgets/elevated_button_widget.dart';
 import 'package:blood_donation_management_system/core/widgets/side_drawer.dart';
 import 'package:blood_donation_management_system/features/home/data/blood_availability_data.dart';
-import 'package:blood_donation_management_system/features/home/home/widgets/blood_availability_card.dart';
-import 'package:blood_donation_management_system/features/home/home/widgets/home_card.dart';
+import 'package:blood_donation_management_system/features/home/widgets/blood_availability_card.dart';
+import 'package:blood_donation_management_system/features/home/widgets/home_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

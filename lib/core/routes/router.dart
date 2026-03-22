@@ -1,8 +1,8 @@
 
-import 'package:blood_donation_management_system/features/Home/Dashboard/presentation/dashboard.dart';
+import 'package:blood_donation_management_system/features/dashboard/presentation/dashboard.dart';
+import 'package:blood_donation_management_system/features/dashboard/presentation/homeView.dart';
 import 'package:blood_donation_management_system/features/donation/presentation/donate.dart';
-import 'package:blood_donation_management_system/features/home/dashboard/presentation/homeView.dart';
-import 'package:blood_donation_management_system/features/home/home/presentation/home.dart';
+import 'package:blood_donation_management_system/features/home/presentation/home.dart';
 import 'package:blood_donation_management_system/features/profile/presentation/profile.dart';
 import 'package:blood_donation_management_system/features/appointment/presentation/appointment.dart';
 import 'package:blood_donation_management_system/features/request/presentation/request.dart';

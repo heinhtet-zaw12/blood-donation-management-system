@@ -1,6 +1,5 @@
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
-import 'package:blood_donation_management_system/features/home/data/blood_availability_data.dart';
 import 'package:blood_donation_management_system/features/home/model/blood_availability_model.dart';
 import 'package:flutter/material.dart';
 
