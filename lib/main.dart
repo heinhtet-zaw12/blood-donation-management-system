@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     // return MaterialApp(
     //   debugShowCheckedModeBanner: false,
     //   theme: ThemeConst.getTheme(),
-    //   home:  LoginScreen(),
+    //   home:  Home()
     // );
   }
 }
