@@ -38,9 +38,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
-    final _formKey = GlobalKey<FormState>();
-    bool isAgree = false;
-    final passwordController = TextEditingController();
+
     return Scaffold(
       backgroundColor: colorScheme.primary,
       body: SafeArea(
@@ -59,16 +57,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  GestureDetector(
-                    onTap: (){
-                      Navigator.pop(context);
-                    },
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: SvgPicture.asset(
-                        "assets/images/close_icon.svg",
-                        width: 20,
-                      ),
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: SvgPicture.asset(
+                      "assets/images/close_icon.svg",
+                      width: 20,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -88,26 +81,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
 
                   Form(
-                      key: _formKey,
                       child: Column(children: [
-                        //User Name
+
+                        //First Name
                         const SizedBox(height: 26),
-                        buildLabel("User name",customColors.textPrimary! , textTheme),
+                        buildLabel("First name",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "User name",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "First name",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "First name is required";
-                            }
-                            if (value.length < 2) {
-                              return "Name must be at least 2 characters";
-                            }
-                            return null;
-                          },
                         ),
 
                         //Email address
@@ -115,21 +103,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Email address", customColors.textPrimary!, textTheme) ,
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "Email address",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Email address",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Email is required";
-                            }
-                            final emailRegex =
-                            RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w]{2,4}$');
-                            if (!emailRegex.hasMatch(value)) {
-                              return "Enter valid email";
-                            }
-                            return null;
-                          },
                         ),
 
                         //Phone number
@@ -137,19 +118,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Phone number",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "Phone number",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Phone number",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Phone number is required";
-                            }
-                            if (value.length < 8) {
-                              return "Invalid phone number";
-                            }
-                            return null;
-                          },
                         ),
 
                         //Date of birth
@@ -160,13 +136,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller:  dateController,
                           readOnly: true,
                           onTap: () => selectDate(context),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please select your birth date';
-                            }
-                            return null;
-                          },
-                          decoration: buildInputDecoration(hintText: "dd/mm/yy",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          // validator: (value) {
+                          //   if (value == null || value.isEmpty) {
+                          //     return 'Please select your birth date';
+                          //   }
+                          //   return null;
+                          // },
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "dd/mm/yy",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/calender_icon.svg",
                             width: 18,
                             colorFilter: ColorFilter.mode(colorScheme.primary, BlendMode.srcIn),
@@ -181,7 +161,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           initialValue: selectedGender,
                           hint: const Text('Select...'),
                           icon:  SvgPicture.asset("assets/images/drop_down.svg",width: 15,height: 15,),
-                          decoration: buildInputDecoration(hintText: "dd/mm/yy",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! ,
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "dd/mm/yy",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
                           ),
                           items: genderOptions.map((String gender) {
                             return DropdownMenuItem<String>(
@@ -209,7 +192,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             width: 15,
                             height: 15,
                           ),
-                          decoration: buildInputDecoration(hintText: "dd/mm/yy",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! ,
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "dd/mm/yy",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
                           ),
                           items: bloodGroups.map((String group) {
                             return DropdownMenuItem<String>(
@@ -222,7 +208,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               selectedBloodGroup = newValue;
                             });
                           },
-                           validator: (value) => value == null ? 'Please select blood group' : null,
+                          // validator: (value) => value == null ? 'Please select blood group' : null,
                           //
 
                         ),
@@ -232,24 +218,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Weight (kg)",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "Weight kg",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! ,
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Weight kg",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
                             svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Weight is required";
-                            }
-                            final weight = double.tryParse(value);
-                            if (weight == null) {
-                              return "Enter valid weight";
-                            }
-                            if (weight < 30) {
-                              return "Weight too low";
-                            }
-                            return null;
-                          },
                         ),
 
                         //Address
@@ -257,16 +233,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Address",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          decoration: buildInputDecoration(hintText: "Address",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Address",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
-                          validator:  (value){
-                            if (value == null || value.isEmpty) {
-                              return "Address is required";
-                            }
-                            return null;
-                          },
                         ),
 
                         //Password
@@ -274,21 +248,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         buildLabel("Password",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
-                          controller: passwordController,
                           obscureText: true,
-                          decoration: buildInputDecoration(hintText: "Password",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Password",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Password required";
-                            }
-                            if (value.length < 6) {
-                              return "Password must be at least 6 characters";
-                            }
-                            return null;
-                          },
                         ),
 
                         //Confirm Password
@@ -297,19 +265,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         const SizedBox(height: 6),
                         TextFormField(
                           obscureText: true,
-                          decoration: buildInputDecoration(hintText: "Confirm password",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                          decoration: buildInputDecoration(
+                            context: context,
+                            hintText: "Confirm password",
+                            hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  
+                            svg:  SvgPicture.asset(
                             "assets/images/Edit_icon.svg",
                             width: 18,
                           ),),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return "Confirm your password";
-                            }
-                            if (value != passwordController.text) {
-                              return "Passwords do not match";
-                            }
-                            return null;
-                          },
                         ),
 
                         //Terms and condition
@@ -317,12 +280,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Row(
                           children: [
                             Checkbox(
-                              value: isAgree,
+                              value: false,
                               visualDensity: VisualDensity.compact,
                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              onChanged: (value) {
-                                isAgree = value!;
-                              },
+                              onChanged: (value) {},
                               side:  BorderSide(
                                   color: customColors.darkPrimary!,
                                   width: 2
@@ -342,19 +303,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(
                           height: 50,
                           width: 282,
-                          child: ElevatedButtonWidget(text: "Register", onPressed: (){
-                            if(!_formKey.currentState!.validate()){
-                              return;
-                            }
-                            if(!isAgree){
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Please accept terms and conditions"),
-                                ),
-                              );
-                              return;
-                            }
-                          },svg: SvgPicture.asset(
+                          child: ElevatedButtonWidget(text: "Register", onPressed: (){},svg: SvgPicture.asset(
                             "assets/images/Register_icon.svg",
                             width: 18,
                             colorFilter: ColorFilter.mode(colorScheme.secondary,BlendMode.srcIn ),

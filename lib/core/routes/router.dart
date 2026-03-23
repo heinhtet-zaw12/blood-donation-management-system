@@ -1,30 +1,18 @@
 
-import 'package:blood_donation_management_system/features/Home/Dashboard/presentation/dashboard.dart';
-import 'package:blood_donation_management_system/features/authentication/Login/presentation/login_screen.dart';
-import 'package:blood_donation_management_system/features/authentication/register/presentation/register_screen.dart';
-import 'package:blood_donation_management_system/features/donation/donate/presentation/donate.dart';
-import 'package:blood_donation_management_system/features/home/dashboard/presentation/homeView.dart';
-import 'package:blood_donation_management_system/features/home/home/presentation/home.dart';
+import 'package:blood_donation_management_system/features/dashboard/presentation/dashboard.dart';
+import 'package:blood_donation_management_system/features/dashboard/presentation/homeView.dart';
+import 'package:blood_donation_management_system/features/donation/presentation/donate.dart';
+import 'package:blood_donation_management_system/features/home/presentation/home.dart';
 import 'package:blood_donation_management_system/features/profile/presentation/profile.dart';
-import 'package:blood_donation_management_system/features/request/appointment/presentation/appointment.dart';
-import 'package:blood_donation_management_system/features/request/request/presentation/request.dart';
+import 'package:blood_donation_management_system/features/appointment/presentation/appointment.dart';
+import 'package:blood_donation_management_system/features/request/presentation/request.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/donation/record/presentation/records.dart';
+import '../../features/record/presentation/records.dart';
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/dashboard',
   routes: [
-    GoRoute(path: '/',
-      builder: (context, state) => Home(),
-    ),
-    GoRoute(path: '/login',
-      builder: (context, state) => LoginScreen(),
-    ),
-    GoRoute(path: '/register',
-      builder: (context, state) => RegisterScreen(),
-    ),
-
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return HomeView(shell: navigationShell,);

@@ -65,10 +65,14 @@ class LoginScreen extends StatelessWidget {
                   buildLabel("User name",customColors.textPrimary! , textTheme),
                   const SizedBox(height: 6),
                   TextFormField(
-                    decoration: buildInputDecoration(hintText: "Enter username",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                    decoration: buildInputDecoration(
+                      context: context, 
+                      hintText: "Enter username",
+                      svg:  SvgPicture.asset(
                       "assets/images/Edit_icon.svg",
                       width: 18,
-                    ),),
+                    ),
+                      ),
                   ),
 
                   //Password
@@ -77,7 +81,13 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 6),
                   TextFormField(
                     obscureText: true,
-                    decoration: buildInputDecoration(hintText: "Password",hintStyle: textTheme.tabText.copyWith(color: customColors.disabled),  color: customColors.disabled! , svg:  SvgPicture.asset(
+                    style: TextStyle(
+                      color: customColors.darkPrimary
+                    ),
+                    decoration: buildInputDecoration(
+                      context: context,
+                      hintText: "Password",
+                      svg:  SvgPicture.asset(
                       "assets/images/Edit_icon.svg",
                       width: 18,
                     ),),
