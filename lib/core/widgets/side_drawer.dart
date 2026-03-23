@@ -2,6 +2,7 @@ import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/features/home/dashboard/widgets/drawerItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
 class SideDrawer extends StatelessWidget {
   const SideDrawer({super.key,required this.isDashboard});
@@ -45,11 +46,16 @@ class SideDrawer extends StatelessWidget {
                   height: 30,
                   "assets/images/announcment_icon.svg",
                 ),text:  "Announcements"),
-                DrawerItem(svg:  SvgPicture.asset(
-                  width: 30,
-                  height: 30,
-                  isDashboard ? "assets/images/logout_icon.svg" : "assets/images/Login_icon1.svg",
-                ),text:  isDashboard ? "Log Out" : "Log In"),
+                GestureDetector(
+                  onTap: (){
+                    context.go('/login');
+                  },
+                  child: DrawerItem(svg:  SvgPicture.asset(
+                    width: 30,
+                    height: 30,
+                    isDashboard ? "assets/images/logout_icon.svg" : "assets/images/Login_icon1.svg",
+                  ),text:  isDashboard ? "Log Out" : "Log In"),
+                ),
                 DrawerItem(svg:  SvgPicture.asset(width: 30, height: 30, "assets/images/setting_icon.svg",),text:  "Settings"),
                const Spacer(),
                Padding(

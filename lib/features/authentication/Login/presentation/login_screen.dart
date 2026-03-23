@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/theme_getter.dart';
 import '../../../../core/widgets/elevated_button_widget.dart';
@@ -21,7 +22,7 @@ class LoginScreen extends StatelessWidget {
         child:  Center(
           child: Container(
             width: screenWidth *0.9,
-            height: 540,
+            height: 550,
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
               color: colorScheme.secondary,
@@ -30,11 +31,16 @@ class LoginScreen extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: SvgPicture.asset(
-                    "assets/images/close_icon.svg",
-                    width: 20,
+                GestureDetector(
+                  onTap:  (){
+                    Navigator.pop(context);
+                  },
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: SvgPicture.asset(
+                      "assets/images/close_icon.svg",
+                      width: 20,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -105,7 +111,9 @@ class LoginScreen extends StatelessWidget {
                   SizedBox(
                     height: 50,
                     width: 282,
-                    child: ElevatedButtonWidget(text: "Log In", onPressed: (){},svg: SvgPicture.asset(
+                    child: ElevatedButtonWidget(text: "Log In", onPressed: (){
+                      context.push('/dashboard');
+                    },svg: SvgPicture.asset(
                       "assets/images/Login_icon.svg",
                       width: 18,
                       colorFilter: ColorFilter.mode(colorScheme.secondary,BlendMode.srcIn ),
@@ -113,7 +121,7 @@ class LoginScreen extends StatelessWidget {
                   )  ,
                 ],)),
 
-               const SizedBox(height: 20),
+               const SizedBox(height: 10),
 
                //Don't have an account
                 Row(
@@ -123,14 +131,16 @@ class LoginScreen extends StatelessWidget {
                       color: customColors.darkPrimary
                     ),),
                     SizedBox(width: 5,),
-                    Text(
+                    TextButton(onPressed: (){
+                      context.go('/register');
+                    }, child:   Text(
                       "Register",
                       style:  textTheme.tabText.copyWith(
-                        decoration: TextDecoration.underline,
+                          decoration: TextDecoration.underline,
                           decorationColor: colorScheme.primary,
-                        color: colorScheme.primary
+                          color: colorScheme.primary
                       ),
-                    )
+                    ))
                   ],
                 )
               ],
