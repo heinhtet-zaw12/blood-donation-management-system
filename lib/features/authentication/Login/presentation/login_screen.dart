@@ -1,4 +1,7 @@
+import 'package:blood_donation_management_system/features/authentication/Login/domain/login_notifier.dart';
+import 'package:blood_donation_management_system/features/authentication/Login/domain/login_state_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,11 +10,31 @@ import '../../../../core/widgets/elevated_button_widget.dart';
 import '../../../../core/widgets/input_decoration.dart';
 import '../../../../core/widgets/label_text_widget.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+  String? email;
+  String? password;
+
+final LoginProvider loginProvider = LoginProvider(() => LoginNotifier());
+  @override
   Widget build(BuildContext context) {
+    ref.listen(loginProvider, (previous, next) {
+      if (next.isSuccess) {
+        context.push('/dashboard');
+      }
+      if (next.isFailed) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Login Failed!")),
+        );
+      }
+    });
     final screenWidth = MediaQuery.of(context).size.width;
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
@@ -58,24 +81,37 @@ class LoginScreen extends StatelessWidget {
                     color: customColors.darkPrimary
                   ),
                 ),
-
-                Form(child: Column(children: [
+                Form(
+                    key:  _formKey,
+                    child: Column(children: [
                   //UserName
                   const SizedBox(height: 26),
-                  buildLabel("User name",customColors.textPrimary! , textTheme),
+                  buildLabel("Email Address",customColors.textPrimary! , textTheme),
                   const SizedBox(height: 6),
                   TextFormField(
                     decoration: buildInputDecoration(
-                      context: context, 
-                      hintText: "Enter username",
+                      context: context,
+                      hintText: "Email Address",
                       svg:  SvgPicture.asset(
                       "assets/images/Edit_icon.svg",
                       width: 18,
                     ),
                       ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Email is required";
+                      }
+                      if (!value.contains('@')) {
+                        return "Enter valid email";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      email = value;
+                    },
                   ),
 
-                  //Password
+                      //Password
                   const SizedBox(height: 16),
                   buildLabel("Password", customColors.textPrimary!, textTheme) ,
                   const SizedBox(height: 6),
@@ -91,9 +127,21 @@ class LoginScreen extends StatelessWidget {
                       "assets/images/Edit_icon.svg",
                       width: 18,
                     ),),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Password is required";
+                      }
+                      if (value.length < 6) {
+                        return "Minimum 6 characters";
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      password = value ?? '';
+                    },
                   ),
 
-                  //RememberMe
+                      //RememberMe
                   const SizedBox(height: 18),
                   Row(
                     children: [
@@ -118,17 +166,32 @@ class LoginScreen extends StatelessWidget {
 
                   //Login Button
                   const SizedBox(height: 20),
-                  SizedBox(
-                    height: 50,
-                    width: 282,
-                    child: ElevatedButtonWidget(text: "Log In", onPressed: (){
-                      context.push('/dashboard');
-                    },svg: SvgPicture.asset(
-                      "assets/images/Login_icon.svg",
-                      width: 18,
-                      colorFilter: ColorFilter.mode(colorScheme.secondary,BlendMode.srcIn ),
-                    ) ,),
-                  )  ,
+                  Consumer(builder: (context, ref, child){
+                    final stateModel = ref.watch(loginProvider);
+
+                    return stateModel.isLoading
+                        ? const Center(
+                      child: CircularProgressIndicator(),
+                    ):
+                    SizedBox(
+                      height: 50,
+                      width: 282,
+                      child: ElevatedButtonWidget(text: "Log In", onPressed: (){
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          ref.read(loginProvider.notifier).login(
+                            email: email!,
+                            password: password!,
+                          );
+                        }
+                      },
+                        svg: SvgPicture.asset(
+                          "assets/images/Login_icon.svg",
+                          width: 18,
+                          colorFilter: ColorFilter.mode(colorScheme.secondary,BlendMode.srcIn ),
+                        ) ,),
+                    ) ;
+                  }),
                 ],)),
 
                const SizedBox(height: 10),
@@ -160,6 +223,4 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
-
 }

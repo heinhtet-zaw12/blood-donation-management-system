@@ -3,12 +3,15 @@ import 'package:blood_donation_management_system/core/theme/theme_const.dart';
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/features/authentication/register/presentation/register_screen.dart';
 import 'package:blood_donation_management_system/features/home/presentation/home.dart';
+import 'package:blood_donation_management_system/service_locator/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'features/authentication/Login/presentation/login_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setUpLocator();
   runApp(const ProviderScope(child: MyApp()));
 }
 

@@ -1,4 +1,6 @@
 
+import 'package:blood_donation_management_system/features/authentication/Login/presentation/login_screen.dart';
+import 'package:blood_donation_management_system/features/authentication/register/presentation/register_screen.dart';
 import 'package:blood_donation_management_system/features/dashboard/presentation/dashboard.dart';
 import 'package:blood_donation_management_system/features/dashboard/presentation/homeView.dart';
 import 'package:blood_donation_management_system/features/donation/presentation/donate.dart';
@@ -11,8 +13,20 @@ import 'package:go_router/go_router.dart';
 import '../../features/record/presentation/records.dart';
 
 final router = GoRouter(
-  initialLocation: '/dashboard',
+  initialLocation: '/',
   routes: [
+    GoRoute(
+      path: '/',
+      builder: (context, state) =>  Home(),
+    ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) =>  RegisterScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) =>  LoginScreen(),
+    ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
         return HomeView(shell: navigationShell,);
@@ -23,7 +37,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: '/dashboard',
-              builder: (context, state) => const DashboardScreen(),
+              builder: (context, state) => DashboardScreen(),
             ),
           ],
         ),
