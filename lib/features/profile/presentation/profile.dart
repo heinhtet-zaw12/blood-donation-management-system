@@ -1,21 +1,38 @@
+import 'package:blood_donation_management_system/core/storage/app_storage.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
+import 'package:blood_donation_management_system/features/profile/domain/profile_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../../core/theme/theme_getter.dart';
 import '../../../core/widgets/input_decoration.dart';
 
-class ProfileScreen extends StatefulWidget {
+class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  ConsumerState<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
-  @override
-  Widget build(BuildContext context) {
+class _ProfileScreenState extends ConsumerState<ProfileScreen> {
+ final  ProfileProvider _profileProvider = ProfileProvider(() => ProfileNotifier());
+ AppStorage storage = GetIt.I.get<AppStorage>();
+ String? userId;
+ @override
+ void initState() {
+   super.initState();
+    getUserId();
 
+ }
+ void getUserId () async{
+  userId = await storage.getUserId();
+  if(userId != null) ref.read(_profileProvider.notifier).getProfile(userId: userId!);
+ }
+
+ @override
+  Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
