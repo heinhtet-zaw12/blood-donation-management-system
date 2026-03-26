@@ -1,12 +1,12 @@
 
-import 'package:blood_donation_management_system/features/authentication/Login/presentation/login_screen.dart';
+import 'package:blood_donation_management_system/features/authentication/Login/presentation/view/login_screen.dart';
 import 'package:blood_donation_management_system/features/authentication/register/presentation/register_screen.dart';
 import 'package:blood_donation_management_system/features/dashboard/presentation/dashboard.dart';
 import 'package:blood_donation_management_system/features/dashboard/presentation/homeView.dart';
 import 'package:blood_donation_management_system/features/donation/presentation/donate.dart';
 import 'package:blood_donation_management_system/features/home/presentation/home.dart';
-import 'package:blood_donation_management_system/features/profile/presentation/profile.dart';
-import 'package:blood_donation_management_system/features/appointment/presentation/appointment.dart';
+import 'package:blood_donation_management_system/features/profile/presentation/view/profile.dart';
+import 'package:blood_donation_management_system/features/appointment/presentation/view/appointment.dart';
 import 'package:blood_donation_management_system/features/request/presentation/request.dart';
 import 'package:go_router/go_router.dart';
 
@@ -37,7 +37,9 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: '/dashboard',
-              builder: (context, state) => DashboardScreen(),
+              pageBuilder: (context, state) => NoTransitionPage(
+                child: DashboardScreen(),
+              ),
             ),
           ],
         ),

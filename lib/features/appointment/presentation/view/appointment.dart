@@ -1,17 +1,33 @@
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
+import 'package:blood_donation_management_system/features/appointment/presentation/provider/appointment_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 
-import '../../../core/theme/theme_getter.dart';
+import '../../../../core/storage/app_storage.dart';
+import '../../../../core/theme/theme_getter.dart';
 
-class Appointment extends StatefulWidget {
+class Appointment extends ConsumerStatefulWidget {
   const Appointment({super.key});
 
   @override
-  State<Appointment> createState() => _AppointmentState();
+  ConsumerState<Appointment> createState() => _AppointmentState();
 }
 
-class _AppointmentState extends State<Appointment> {
+class _AppointmentState extends ConsumerState<Appointment> {
+  AppStorage storage = GetIt.I.get<AppStorage>();
+  String? userId;
+  @override
+  void initState() {
+    super.initState();
+    getAppointment();
+
+  }
+  void getAppointment () async{
+    userId = await storage.getUserId();
+    if(userId != null) ref.read(appointmentNotifierProvider.notifier).getAppointments(userId: userId!);
+  }
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;

@@ -1,14 +1,15 @@
-import 'package:blood_donation_management_system/features/authentication/Login/domain/login_notifier.dart';
-import 'package:blood_donation_management_system/features/authentication/Login/domain/login_state_model.dart';
+import 'package:blood_donation_management_system/features/authentication/Login/presentation/notifier/login_notifier.dart';
+import 'package:blood_donation_management_system/features/authentication/Login/presentation/notifier/login_state_model.dart';
+import 'package:blood_donation_management_system/features/authentication/Login/presentation/providers/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/theme/theme_getter.dart';
-import '../../../../core/widgets/elevated_button_widget.dart';
-import '../../../../core/widgets/input_decoration.dart';
-import '../../../../core/widgets/label_text_widget.dart';
+import '../../../../../core/theme/theme_getter.dart';
+import '../../../../../core/widgets/elevated_button_widget.dart';
+import '../../../../../core/widgets/input_decoration.dart';
+import '../../../../../core/widgets/label_text_widget.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -22,10 +23,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   String? email;
   String? password;
 
-final LoginProvider loginProvider = LoginProvider(() => LoginNotifier());
+
   @override
   Widget build(BuildContext context) {
-    ref.listen(loginProvider, (previous, next) {
+    ref.listen(loginNotifierProvider, (previous, next) {
       if (next.isSuccess) {
         context.push('/dashboard');
       }
@@ -35,6 +36,7 @@ final LoginProvider loginProvider = LoginProvider(() => LoginNotifier());
         );
       }
     });
+
     final screenWidth = MediaQuery.of(context).size.width;
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
@@ -167,7 +169,7 @@ final LoginProvider loginProvider = LoginProvider(() => LoginNotifier());
                   //Login Button
                   const SizedBox(height: 20),
                   Consumer(builder: (context, ref, child){
-                    final stateModel = ref.watch(loginProvider);
+                    final stateModel = ref.watch(loginNotifierProvider);
 
                     return stateModel.isLoading
                         ? const Center(
@@ -179,7 +181,7 @@ final LoginProvider loginProvider = LoginProvider(() => LoginNotifier());
                       child: ElevatedButtonWidget(text: "Log In", onPressed: (){
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          ref.read(loginProvider.notifier).login(
+                          ref.read(loginNotifierProvider.notifier).login(
                             email: email!,
                             password: password!,
                           );

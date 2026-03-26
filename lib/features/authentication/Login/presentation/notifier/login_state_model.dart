@@ -1,4 +1,4 @@
-import 'package:blood_donation_management_system/features/authentication/Login/data/login_model.dart';
+import 'package:blood_donation_management_system/features/authentication/Login/data/model/login_model.dart';
 
 class LoginStateModel {
   final bool isLoading;

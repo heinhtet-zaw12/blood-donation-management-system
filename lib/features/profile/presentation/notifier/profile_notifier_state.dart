@@ -1,4 +1,4 @@
-import 'package:blood_donation_management_system/features/profile/data/user_profile_model.dart';
+import 'package:blood_donation_management_system/features/profile/data/model/user_profile_model.dart';
 
 class ProfileNotifierState {
   final bool isLoading;
