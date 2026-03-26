@@ -1,9 +1,8 @@
-import 'package:blood_donation_management_system/features/authentication/Login/data/login_model.dart';
-import 'package:blood_donation_management_system/features/profile/data/user_profile_service.dart';
-import 'package:blood_donation_management_system/features/profile/domain/profile_notifier_state.dart';
+import 'package:blood_donation_management_system/features/authentication/Login/data/model/login_model.dart';
+import 'package:blood_donation_management_system/features/profile/data/service/user_profile_service.dart';
+import 'package:blood_donation_management_system/features/profile/presentation/notifier/profile_notifier_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-typedef ProfileProvider =  NotifierProvider<ProfileNotifier,ProfileNotifierState>;
 
 class ProfileNotifier extends Notifier<ProfileNotifierState>{
   UserProfileService userProfileService = UserProfileService();

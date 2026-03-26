@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/theme/theme_getter.dart';
 import '../../../../core/widgets/box_decoration.dart';
 import '../../../../core/widgets/elevated_button_widget.dart';
+import 'become_donor_dialog.dart';
 
 class BecomeLifesaverCard extends StatefulWidget {
   const BecomeLifesaverCard({super.key});
@@ -50,6 +51,10 @@ class _BecomeLifesaverCardState extends State<BecomeLifesaverCard> {
                   ),
                 ),
                 onPressed: (){
+                  showDialog(
+                    context: context,
+                    builder: (_) =>  BecomeDonorDialog(),
+                  );
             }),
           )
         ],

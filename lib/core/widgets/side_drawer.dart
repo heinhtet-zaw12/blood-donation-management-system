@@ -1,20 +1,22 @@
 import 'package:blood_donation_management_system/core/storage/app_storage.dart';
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
+import 'package:blood_donation_management_system/features/authentication/Logout/views/provider/logout_provider.dart';
 import 'package:blood_donation_management_system/features/dashboard/widgets/drawerItem.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 
-class SideDrawer extends StatefulWidget {
+class SideDrawer extends ConsumerStatefulWidget {
   const SideDrawer({super.key,required this.isDashboard});
   final bool isDashboard;
 
   @override
-  State<SideDrawer> createState() => _SideDrawerState();
+  ConsumerState<SideDrawer> createState() => _SideDrawerState();
 }
 
-class _SideDrawerState extends State<SideDrawer> {
+class _SideDrawerState extends ConsumerState<SideDrawer> {
   AppStorage _storage = GetIt.I.get<AppStorage>();
 
   String? token;
@@ -60,7 +62,10 @@ class _SideDrawerState extends State<SideDrawer> {
                const SizedBox(height: 40),
                     // Drawer Items
                 InkWell(
-                  onTap: () => context.push('/'),
+                  onTap: (){
+                    Navigator.pop(context);
+                    context.go('/');
+                  },
                   child: DrawerItem(svg:  SvgPicture.asset(
                     width: 30,
                     height: 30,
@@ -76,20 +81,32 @@ class _SideDrawerState extends State<SideDrawer> {
                   ),text:  "Announcements"),
                 ),
                (token != null ) ? InkWell(
+                 onTap:  ()  {
+                   Navigator.pop(context);
+                    ref.read(logoutNotifierProvider.notifier).logout();
+                    context.go('/');
+                    },
                  child: DrawerItem(svg:  SvgPicture.asset(
                    width: 30,
                    height: 30,
                    "assets/images/logout_icon.svg",
                  ),text:  "Logout"),
                ) : InkWell(
+                 onTap: (){
+                   context.go('/login');
+                 },
                  child:  DrawerItem(svg:  SvgPicture.asset(
+                   colorFilter: ColorFilter.mode(customColors.darkPrimary!, BlendMode.srcIn),
                    width: 30,
                    height: 30,
                    "assets/images/Login_icon.svg",
                  ),text:  "Login"),
                ),
                (!widget.isDashboard && token != null) ?  InkWell(
-                 onTap: () => context.push('/dashboard'),
+                 onTap: () {
+                   Navigator.pop(context);
+                   context.go('/dashboard');
+                 },
                  child: DrawerItem(svg:  SvgPicture.asset(
                    colorFilter: ColorFilter.mode(customColors.darkPrimary!, BlendMode.srcIn),
                    width: 30,

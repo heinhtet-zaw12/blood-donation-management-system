@@ -1,6 +1,6 @@
 import 'package:blood_donation_management_system/core/const/url_const.dart';
-import 'package:blood_donation_management_system/features/authentication/Login/data/login_model.dart';
-import 'package:blood_donation_management_system/features/authentication/Login/domain/login_state_model.dart';
+import 'package:blood_donation_management_system/features/authentication/Login/data/model/login_model.dart';
+import 'package:blood_donation_management_system/features/authentication/Login/presentation/notifier/login_state_model.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 

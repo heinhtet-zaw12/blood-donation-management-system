@@ -1,5 +1,5 @@
 import 'package:blood_donation_management_system/core/const/url_const.dart';
-import 'package:blood_donation_management_system/features/profile/data/user_profile_model.dart';
+import 'package:blood_donation_management_system/features/profile/data/model/user_profile_model.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 
