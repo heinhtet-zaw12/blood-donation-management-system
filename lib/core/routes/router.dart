@@ -3,7 +3,7 @@ import 'package:blood_donation_management_system/features/authentication/Login/p
 import 'package:blood_donation_management_system/features/authentication/register/presentation/register_screen.dart';
 import 'package:blood_donation_management_system/features/dashboard/presentation/dashboard.dart';
 import 'package:blood_donation_management_system/features/dashboard/presentation/homeView.dart';
-import 'package:blood_donation_management_system/features/donation/presentation/donate.dart';
+import 'package:blood_donation_management_system/features/donate/presentation/donate.dart';
 import 'package:blood_donation_management_system/features/home/presentation/home.dart';
 import 'package:blood_donation_management_system/features/profile/presentation/view/profile.dart';
 import 'package:blood_donation_management_system/features/appointment/presentation/view/appointment.dart';

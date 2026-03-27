@@ -5,15 +5,14 @@ import 'package:flutter_svg/svg.dart';
 
 ElevatedButton PreviousButton({
   required BuildContext context,
+  required VoidCallback onPressed
 }) {
   ColorScheme colorScheme = Theme.of(context).colorScheme;
   final customColors = context.colors;
   final textTheme = context.bdmsText;
 
   return ElevatedButton(
-    onPressed: (){
-      
-    },
+    onPressed: onPressed,
     style: ElevatedButton.styleFrom(
       backgroundColor: colorScheme.secondary,
       shape: RoundedRectangleBorder(

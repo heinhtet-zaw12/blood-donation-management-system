@@ -2,30 +2,44 @@ import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/input_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/label_text_widget.dart';
-import 'package:blood_donation_management_system/features/donation/widgets/next_button.dart';
+import 'package:blood_donation_management_system/features/donate/widgets/next_button.dart';
+import 'package:blood_donation_management_system/features/request/providers/request_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-class FirstRequestForm extends StatefulWidget {
+class FirstRequestForm extends ConsumerStatefulWidget {
   const FirstRequestForm({super.key});
 
   @override
-  State<FirstRequestForm> createState() => _FirstRequestFormState();
+  ConsumerState<FirstRequestForm> createState() => _FirstRequestFormState();
 }
 
-class _FirstRequestFormState extends State<FirstRequestForm> {
-  @override
-  Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
-    final customColors = context.colors;
-    final textTheme = context.bdmsText;
-
-    final _formKey = GlobalKey<FormState>();
+class _FirstRequestFormState extends ConsumerState<FirstRequestForm> {
+  final _formKey = GlobalKey<FormState>();
     final _patientNameController = TextEditingController();
     final _hospitalNameController = TextEditingController();
     final _patientAddressController = TextEditingController();
     String? selectedValue;
     List<String> bloodType = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+
+    @override
+    void initState() {
+      super.initState();
+
+      final data = ref.read(requestFormProvider);
+
+      _patientNameController.text = data.name ?? '';
+      _hospitalNameController.text = data.phone ?? '';
+      _patientAddressController.text = data.address ?? '';
+      selectedValue = data.bloodType;
+    }
+
+  @override
+  Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final customColors = context.colors;
+    final textTheme = context.bdmsText;
 
     return Padding(
             padding: const EdgeInsets.all(20),
@@ -149,7 +163,20 @@ class _FirstRequestFormState extends State<FirstRequestForm> {
                       //Next Button
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 75),
-                        child: NextButton(context: context),
+                        child: NextButton(context: context,
+                        onPressed: () {
+                          ref.read(requestFormProvider.notifier).state =
+                              ref.read(requestFormProvider).copyWith(
+                            name: _patientNameController.text,
+                            address: _patientAddressController.text,
+                            hospital: _hospitalNameController.text,
+                            bloodType: selectedValue,
+                          );
+
+                          ref.read(requestStepProvider.notifier).state =
+                              RequestStep.second;
+                        },
+                        ),
                       )
                     ],
                   ),
