@@ -1,6 +1,6 @@
 
 import 'package:blood_donation_management_system/features/authentication/Login/presentation/view/login_screen.dart';
-import 'package:blood_donation_management_system/features/authentication/register/presentation/register_screen.dart';
+import 'package:blood_donation_management_system/features/authentication/register/presentation/view/register_screen.dart';
 import 'package:blood_donation_management_system/features/dashboard/presentation/dashboard.dart';
 import 'package:blood_donation_management_system/features/dashboard/presentation/homeView.dart';
 import 'package:blood_donation_management_system/features/donation/presentation/donate.dart';
