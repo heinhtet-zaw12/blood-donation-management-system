@@ -2,7 +2,7 @@ import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/input_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/label_text_widget.dart';
-import 'package:blood_donation_management_system/features/donate/providers/donate_provider.dart';
+import 'package:blood_donation_management_system/features/donate/presentation/providers/donate_provider.dart';
 import 'package:blood_donation_management_system/features/donate/widgets/next_button.dart';
 import 'package:blood_donation_management_system/features/donate/widgets/previous_button.dart';
 import 'package:flutter/material.dart';
@@ -180,8 +180,11 @@ class _SecondDonateFormState extends ConsumerState<SecondDonateForm> {
                               time: selectedValue,
                             );
 
+                            // ref.read(donateStepProvider.notifier).state =
+                            //     DonateStep.third;
+
                             ref.read(donateStepProvider.notifier).state =
-                                DonateStep.third;
+                                DonateStep.submit;
                           },
                           )
                         ],

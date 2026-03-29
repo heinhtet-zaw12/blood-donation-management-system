@@ -3,7 +3,7 @@ import 'package:blood_donation_management_system/features/donate/presentation/do
 import 'package:blood_donation_management_system/features/donate/presentation/first_donate_form.dart';
 import 'package:blood_donation_management_system/features/donate/presentation/second_donate_form.dart';
 import 'package:blood_donation_management_system/features/donate/presentation/third_donate_form.dart';
-import 'package:blood_donation_management_system/features/donate/providers/donate_provider.dart';
+import 'package:blood_donation_management_system/features/donate/presentation/providers/donate_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
