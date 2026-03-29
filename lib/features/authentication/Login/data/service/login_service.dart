@@ -17,8 +17,7 @@ class LoginService {
     }
     return null;
   }on DioException catch (e) {
-    throw Exception('Failed to load p'
-        'rofile: ${e.message}');
+    throw Exception('Login Failed: ${e.message}');
   }
  }
 }
