@@ -1,3 +1,5 @@
+import 'package:blood_donation_management_system/features/donor/data/model/donor_model.dart';
+
 class UserProfileModel {
   UserProfileModel({
       this.status, 
@@ -50,7 +52,7 @@ class Data {
     email = json['email'];
     isActive = json['isActive'];
     createdAt = json['createdAt'];
-    donorInfo = json['donorInfo'] != null ? DonorInfo.fromJson(json['donorInfo']) : null;
+    donorInfo = json['donorInfo'] != null ? DonorProfileModel.fromJson(json['donorInfo']) : null;
   }
   num? id;
   num? roleId;
@@ -59,7 +61,7 @@ class Data {
   String? email;
   bool? isActive;
   String? createdAt;
-  DonorInfo? donorInfo;
+  DonorProfileModel? donorInfo;
 Data copyWith({  num? id,
   num? roleId,
   num? hospitalId,
@@ -67,7 +69,7 @@ Data copyWith({  num? id,
   String? email,
   bool? isActive,
   String? createdAt,
-  DonorInfo? donorInfo,
+  DonorProfileModel? donorInfo,
 }) => Data(  id: id ?? this.id,
   roleId: roleId ?? this.roleId,
   hospitalId: hospitalId ?? this.hospitalId,
@@ -89,97 +91,6 @@ Data copyWith({  num? id,
     if (donorInfo != null) {
       map['donorInfo'] = donorInfo?.toJson();
     }
-    return map;
-  }
-
-}
-
-class DonorInfo {
-  DonorInfo({
-      this.donorId, 
-      this.nrcNo, 
-      this.dateOfBirth, 
-      this.gender, 
-      this.bloodGroup, 
-      this.weight, 
-      this.lastDonationDate, 
-      this.remarks, 
-      this.emergencyContact, 
-      this.emergencyPhone, 
-      this.address, 
-      this.isActive, 
-      this.createdAt,});
-
-  DonorInfo.fromJson(dynamic json) {
-    donorId = json['donorId'];
-    nrcNo = json['nrcNo'];
-    dateOfBirth = json['dateOfBirth'];
-    gender = json['gender'];
-    bloodGroup = json['bloodGroup'];
-    weight = json['weight'];
-    lastDonationDate = json['lastDonationDate'];
-    remarks = json['remarks'];
-    emergencyContact = json['emergencyContact'];
-    emergencyPhone = json['emergencyPhone'];
-    address = json['address'];
-    isActive = json['isActive'];
-    createdAt = json['created_at'];
-  }
-  num? donorId;
-  String? nrcNo;
-  String? dateOfBirth;
-  String? gender;
-  String? bloodGroup;
-  num? weight;
-  String? lastDonationDate;
-  String? remarks;
-  String? emergencyContact;
-  String? emergencyPhone;
-  String? address;
-  bool? isActive;
-  bool? createdAt;
-DonorInfo copyWith({  num? donorId,
-  String? nrcNo,
-  String? dateOfBirth,
-  String? gender,
-  String? bloodGroup,
-  num? weight,
-  String? lastDonationDate,
-  String? remarks,
-  String? emergencyContact,
-  String? emergencyPhone,
-  String? address,
-  bool? isActive,
-  bool? createdAt,
-}) => DonorInfo(  donorId: donorId ?? this.donorId,
-  nrcNo: nrcNo ?? this.nrcNo,
-  dateOfBirth: dateOfBirth ?? this.dateOfBirth,
-  gender: gender ?? this.gender,
-  bloodGroup: bloodGroup ?? this.bloodGroup,
-  weight: weight ?? this.weight,
-  lastDonationDate: lastDonationDate ?? this.lastDonationDate,
-  remarks: remarks ?? this.remarks,
-  emergencyContact: emergencyContact ?? this.emergencyContact,
-  emergencyPhone: emergencyPhone ?? this.emergencyPhone,
-  address: address ?? this.address,
-  isActive: isActive ?? this.isActive,
-  createdAt: createdAt ?? this.createdAt,
-);
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['donorId'] = donorId;
-    map['nrcNo'] = nrcNo;
-    map['dateOfBirth'] = dateOfBirth;
-    map['gender'] = gender;
-    map['bloodGroup'] = bloodGroup;
-    map['weight'] = weight;
-    map['lastDonationDate'] = lastDonationDate;
-    map['remarks'] = remarks;
-    map['emergencyContact'] = emergencyContact;
-    map['emergencyPhone'] = emergencyPhone;
-    map['address'] = address;
-    map['isActive'] = isActive;
-    map['created_at'] = createdAt;
     return map;
   }
 
