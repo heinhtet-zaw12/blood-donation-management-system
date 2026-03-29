@@ -9,7 +9,8 @@ class DonorProfileService {
     try{
       final response = await dio.get('${UrlConst.profile}/$userId${UrlConst.donor}');
       if (response.statusCode == 200) {
-        return DonorProfileModel.fromJson(response.data);
+        final data = response.data['data'];
+        return DonorProfileModel.fromJson(data);
       }
       return null;
     }on DioException catch (e) {
