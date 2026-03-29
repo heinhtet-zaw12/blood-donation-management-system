@@ -2,31 +2,46 @@ import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/input_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/label_text_widget.dart';
-import 'package:blood_donation_management_system/features/donation/widgets/next_button.dart';
-import 'package:blood_donation_management_system/features/donation/widgets/previous_button.dart';
+import 'package:blood_donation_management_system/features/donate/presentation/providers/donate_provider.dart';
+import 'package:blood_donation_management_system/features/donate/widgets/next_button.dart';
+import 'package:blood_donation_management_system/features/donate/widgets/previous_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-class SecondDonateForm extends StatefulWidget {
+class SecondDonateForm extends ConsumerStatefulWidget {
   const SecondDonateForm({super.key});
 
   @override
-  State<SecondDonateForm> createState() => _SecondDonateFormState();
+  ConsumerState<SecondDonateForm> createState() => _SecondDonateFormState();
 }
 
-class _SecondDonateFormState extends State<SecondDonateForm> {
+class _SecondDonateFormState extends ConsumerState<SecondDonateForm> {
+  final _formKey = GlobalKey<FormState>();
+    final _hospitalNameController = TextEditingController();
+    final TextEditingController _dateController = TextEditingController();
+    DateTime? selectedDate;
+    String? selectedValue;
+    List<String> timeSlot = ['9 : 00 AM', '10 : 00 AM', '11 : 00 AM', '1 : 00 PM', '2 : 00 PM', '3 : 00 PM', '4 : 00 PM'];
+
+    @override
+    void initState() {
+      super.initState();
+
+      final data = ref.read(donateFormProvider);
+
+      _hospitalNameController.text = data.hospital ?? '';
+      _dateController.text = data.date ?? '';
+      selectedValue = data.time;
+    }
+
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
 
-    final _formKey = GlobalKey<FormState>();
-    final _hospitalNameController = TextEditingController();
-    final TextEditingController _dateController = TextEditingController();
-    DateTime? selectedDate;
-    String? selectedValue;
-    List<String> timeSlot = ['9 : 00 AM', '10 : 00 AM', '11 : 00 AM', '1 : 00 PM', '2 : 00 PM', '3 : 00 PM', '4 : 00 PM'];
+    
 
     Future<void> _selectDate(BuildContext context) async {
       DateTime? pickedDate = await showDatePicker(
@@ -150,8 +165,28 @@ class _SecondDonateFormState extends State<SecondDonateForm> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween ,
                         children: [
-                          PreviousButton(context: context),
-                          NextButton(context: context)
+                          PreviousButton(context: context,
+                          onPressed: () {
+                              ref.read(donateStepProvider.notifier).state =
+                                  DonateStep.first;
+                            },
+                          ),
+                          NextButton(context: context, 
+                          onPressed: () {
+                            ref.read(donateFormProvider.notifier).state =
+                                ref.read(donateFormProvider).copyWith(
+                              hospital: _hospitalNameController.text,
+                              date: _dateController.text,
+                              time: selectedValue,
+                            );
+
+                            // ref.read(donateStepProvider.notifier).state =
+                            //     DonateStep.third;
+
+                            ref.read(donateStepProvider.notifier).state =
+                                DonateStep.submit;
+                          },
+                          )
                         ],
                       )
                     ],

@@ -1,16 +1,18 @@
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/label_text_widget.dart';
-import 'package:blood_donation_management_system/features/donation/widgets/previous_button.dart';
-import 'package:blood_donation_management_system/features/donation/widgets/submit_button.dart';
+import 'package:blood_donation_management_system/features/donate/widgets/previous_button.dart';
+import 'package:blood_donation_management_system/features/donate/widgets/submit_button.dart';
+import 'package:blood_donation_management_system/features/request/providers/request_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
-class RequestSubmit extends StatelessWidget {
+class RequestSubmit extends ConsumerWidget {
   const RequestSubmit({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
@@ -41,7 +43,12 @@ class RequestSubmit extends StatelessWidget {
                     const SizedBox(height: 20),
                     SubmitButton(context),
                     const SizedBox(height: 20),
-                    PreviousButton(context: context),
+                    PreviousButton(context: context,
+                      onPressed: (){
+                        ref.read(requestStepProvider.notifier).state = 
+                          RequestStep.third;
+                      }
+                    ),
                   ],
                 ),
               ),

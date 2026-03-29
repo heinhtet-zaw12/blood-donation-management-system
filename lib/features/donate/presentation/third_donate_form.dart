@@ -3,20 +3,28 @@ import 'package:blood_donation_management_system/core/theme/extension/bdms_text_
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/label_text_widget.dart';
-import 'package:blood_donation_management_system/features/donation/widgets/next_button.dart';
-import 'package:blood_donation_management_system/features/donation/widgets/previous_button.dart';
+import 'package:blood_donation_management_system/features/donate/presentation/providers/donate_provider.dart';
+import 'package:blood_donation_management_system/features/donate/widgets/next_button.dart';
+import 'package:blood_donation_management_system/features/donate/widgets/previous_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ThirdDonateForm extends StatefulWidget {
+class ThirdDonateForm extends ConsumerStatefulWidget {
   const ThirdDonateForm({super.key});
 
   @override
-  State<ThirdDonateForm> createState() => _ThirdDonateFormState();
+  ConsumerState<ThirdDonateForm> createState() => _ThirdDonateFormState();
 }
 
 
-class _ThirdDonateFormState extends State<ThirdDonateForm> {
+class _ThirdDonateFormState extends ConsumerState<ThirdDonateForm> {
     List<bool?> answers = [null, null, null];
+
+    @override
+void initState() {
+  super.initState();
+  answers = ref.read(donateFormProvider).answers;
+}
 
   Column DonationQuery(BDMSTextTheme textTheme, BDMSColors customColors, String labelText, String queryText){
   return Column(
@@ -120,8 +128,23 @@ Widget buildCheckbox(int index) {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween ,
                       children: [
-                        PreviousButton(context: context),
-                        NextButton(context: context)
+                        PreviousButton(context: context,
+                        onPressed: () {
+                            ref.read(donateStepProvider.notifier).state =
+                                DonateStep.second;
+                          },
+                        ),
+                        NextButton(context: context, 
+                        onPressed: () {
+                          ref.read(donateFormProvider.notifier).state =
+                              ref.read(donateFormProvider).copyWith(
+                            answers: answers,
+                          );
+
+                          ref.read(donateStepProvider.notifier).state =
+                              DonateStep.submit;
+                        },
+                        )
                       ],
                     )
                   ],

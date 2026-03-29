@@ -1,18 +1,25 @@
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
 import 'package:blood_donation_management_system/core/widgets/input_decoration.dart';
-import 'package:blood_donation_management_system/features/donation/widgets/next_button.dart';
+import 'package:blood_donation_management_system/features/donate/presentation/providers/donate_provider.dart';
+import 'package:blood_donation_management_system/features/donate/widgets/next_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../core/widgets/label_text_widget.dart';
 
-class FirstDonateForm extends StatefulWidget {
+class FirstDonateForm extends ConsumerStatefulWidget {
   const FirstDonateForm({super.key});
 
   @override
-  State<FirstDonateForm> createState() => _FirstDonateFormState();
+  ConsumerState<FirstDonateForm> createState() =>
+      _FirstDonateFormState();
 }
+
+
+
+class _FirstDonateFormState extends ConsumerState<FirstDonateForm> {
 
 final _formKey = GlobalKey<FormState>();
 final _usernameController = TextEditingController();
@@ -20,7 +27,16 @@ final _contactNumController = TextEditingController();
 String? selectedValue;
 List<String> bloodType = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
-class _FirstDonateFormState extends State<FirstDonateForm> {
+  @override
+void initState() {
+  super.initState();
+
+  final data = ref.read(donateFormProvider);
+
+  _usernameController.text = data.name ?? '';
+  _contactNumController.text = data.phone ?? '';
+  selectedValue = data.bloodType;
+}
   @override
   Widget build(BuildContext context) {
     ColorScheme colorScheme = Theme.of(context).colorScheme;
@@ -129,7 +145,19 @@ class _FirstDonateFormState extends State<FirstDonateForm> {
                 //Next Button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 75),
-                  child: NextButton(context: context),
+                  child: NextButton(context: context,
+                  onPressed: () {
+                    ref.read(donateFormProvider.notifier).state =
+                        ref.read(donateFormProvider).copyWith(
+                      name: _usernameController.text,
+                      phone: _contactNumController.text,
+                      bloodType: selectedValue,
+                    );
+
+                    ref.read(donateStepProvider.notifier).state =
+                        DonateStep.second;
+                  },
+                  ),
                 ),
               ],
             ),
