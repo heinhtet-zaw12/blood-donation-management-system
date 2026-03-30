@@ -1,10 +1,11 @@
+import 'package:blood_donation_management_system/features/donor/presentation/view/become_a_donor_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/theme/theme_getter.dart';
 import '../../../../core/widgets/box_decoration.dart';
 import '../../../../core/widgets/elevated_button_widget.dart';
-import 'become_donor_dialog.dart';
+
 
 class BecomeLifesaverCard extends StatefulWidget {
   const BecomeLifesaverCard({super.key});
