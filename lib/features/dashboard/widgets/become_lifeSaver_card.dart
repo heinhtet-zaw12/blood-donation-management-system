@@ -1,4 +1,4 @@
-import 'package:blood_donation_management_system/features/donor/presentation/view/become_a_donor_dialog.dart';
+import 'package:blood_donation_management_system/features/becomeDonor/presentation/view/become_a_donor_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
