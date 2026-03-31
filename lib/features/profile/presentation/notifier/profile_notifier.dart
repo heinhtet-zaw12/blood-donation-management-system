@@ -10,7 +10,7 @@ class ProfileNotifier extends Notifier<ProfileNotifierState>{
   ProfileNotifierState build() {
   return  ProfileNotifierState(isLoading: true, isSuccess: false, isFailed: false , userProfileModel:  null);
   }
-   void getProfile({required String userId}) async{
+   Future<void>  getProfile({required String userId}) async{
      state = state.copyWith(isLoading: true, isFailed: false, isSuccess: false);
    final  userProfileModel = await userProfileService.getUserProfile(userId: userId);
    if(userProfileModel != null){

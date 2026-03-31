@@ -1,25 +1,26 @@
+import 'package:blood_donation_management_system/features/becomeDonor/presentation/view/become_a_donor_dialog.dart';
+import 'package:blood_donation_management_system/features/profile/presentation/provider/profile_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/theme/theme_getter.dart';
 import '../../../../core/widgets/box_decoration.dart';
 import '../../../../core/widgets/elevated_button_widget.dart';
-import 'become_donor_dialog.dart';
 
-class BecomeLifesaverCard extends StatefulWidget {
+
+class BecomeLifesaverCard extends ConsumerWidget {
   const BecomeLifesaverCard({super.key});
 
   @override
-  State<BecomeLifesaverCard> createState() => _BecomeLifesaverCardState();
-}
-
-class _BecomeLifesaverCardState extends State<BecomeLifesaverCard> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
-    return Container(
+    final user = ref.watch(userProfileNotifierProvider.select((state)=> state.userProfileModel?.data?.donorInfo));
+
+    return user != null ? SizedBox.shrink() :
+    Container(
       padding: const EdgeInsets.all(16),
       height: 247,
       width: 382,

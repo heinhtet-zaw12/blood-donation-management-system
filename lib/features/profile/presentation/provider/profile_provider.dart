@@ -11,5 +11,5 @@ final userProfileRepositoryProvider = Provider((ref) {
  return UserProfileRepositoryImpl(useProfileService);
 });
 
-
 final userProfileNotifierProvider = NotifierProvider<ProfileNotifier,ProfileNotifierState>(() => ProfileNotifier());
+
