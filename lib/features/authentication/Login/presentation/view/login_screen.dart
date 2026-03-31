@@ -10,6 +10,7 @@ import '../../../../../core/theme/theme_getter.dart';
 import '../../../../../core/widgets/elevated_button_widget.dart';
 import '../../../../../core/widgets/input_decoration.dart';
 import '../../../../../core/widgets/label_text_widget.dart';
+import '../../../../profile/presentation/provider/profile_provider.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -178,10 +179,10 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     SizedBox(
                       height: 50,
                       width: 282,
-                      child: ElevatedButtonWidget(text: "Log In", onPressed: (){
+                      child: ElevatedButtonWidget(text: "Log In", onPressed: () async{
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          ref.read(loginNotifierProvider.notifier).login(
+                        await  ref.read(loginNotifierProvider.notifier).login(
                             email: email!,
                             password: password!,
                           );

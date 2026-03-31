@@ -1,7 +1,9 @@
 import 'dart:math';
 import 'package:blood_donation_management_system/core/theme/extension/bdms_text_theme.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
+import 'package:blood_donation_management_system/features/dashboard/presentation/provider/dashboard_provier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/theme/theme_getter.dart';
@@ -9,16 +11,16 @@ import 'arc_painter.dart';
 
 
 
-class DonationEligibilityCard extends StatefulWidget {
+class DonationEligibilityCard extends ConsumerStatefulWidget {
   const DonationEligibilityCard({super.key});
 
   @override
-  State<DonationEligibilityCard> createState() =>
+  ConsumerState<DonationEligibilityCard> createState() =>
       _DonationEligibilityCardState();
 }
 
 class _DonationEligibilityCardState
-    extends State<DonationEligibilityCard>
+    extends ConsumerState<DonationEligibilityCard>
     with SingleTickerProviderStateMixin {
 
   static const primaryRed = Color(0xffFF2D3A);
@@ -67,6 +69,8 @@ class _DonationEligibilityCardState
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
+    final remainingDays = ref.watch(dashboardNotifierProvider.select((state)=> state.dashboardDataModel?.data?.donationStatus?.daysRemaining));
+
     return Container(
       padding: const EdgeInsets.all(24),
       height: 346,

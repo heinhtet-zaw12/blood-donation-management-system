@@ -1,18 +1,24 @@
+import 'package:blood_donation_management_system/core/utils/date_formatter.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
+import 'package:blood_donation_management_system/features/dashboard/presentation/provider/dashboard_provier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../../../../core/theme/theme_getter.dart';
 
 
-class UrgentRequestCard extends StatelessWidget {
+class UrgentRequestCard extends ConsumerWidget {
   const UrgentRequestCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
-    return Container(
+    final dashboardData = ref.watch(dashboardNotifierProvider);
+    final urgentRequestData = dashboardData.dashboardDataModel?.data?.urgentBloodRequest;
+
+    return (urgentRequestData != null)? Container(
       padding: const EdgeInsets.all(16),
       height: 274,
       width: 382,
@@ -47,7 +53,7 @@ class UrgentRequestCard extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("5",
+                      Text(urgentRequestData.unitsRequired.toString(),
                           style: textTheme.title.copyWith(color:colorScheme.secondary)),
                       Text("Units", style: textTheme.bodyRegular.copyWith(
                         color:  colorScheme.secondary
@@ -80,7 +86,7 @@ class UrgentRequestCard extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 8,),
-                          Expanded(child: Text("B +", style: textTheme.tabText.copyWith(color: customColors.darkPrimary),)),
+                          Expanded(child: Text(urgentRequestData.bloodGroup.toString(), style: textTheme.tabText.copyWith(color: customColors.darkPrimary),)),
                         ],
                       ),
                       SizedBox(height: 8,),
@@ -99,7 +105,7 @@ class UrgentRequestCard extends StatelessWidget {
                           ),
                           SizedBox(width: 10,),
                           Expanded(
-                            child: Text("Sakura Medical Center",
+                            child: Text(urgentRequestData.hospitalId.toString(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: textTheme.tabText.copyWith(color: customColors.darkPrimary),),
@@ -122,7 +128,7 @@ class UrgentRequestCard extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 8,),
-                          Expanded(child: Text("11 : 00 AM", style: textTheme.tabText.copyWith(color: customColors.darkPrimary),)),
+                          Expanded(child: Text(urgentRequestData.requiredDate?.toFormattedTime() ?? "N/A", style: textTheme.tabText.copyWith(color: customColors.darkPrimary),)),
                         ],
                       ),
                       SizedBox(height: 8,),
@@ -140,7 +146,7 @@ class UrgentRequestCard extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 10,),
-                          Expanded(child: Text("01 Mar 2026", style: textTheme.tabText.copyWith(color: customColors.darkPrimary),)),
+                          Expanded(child: Text(urgentRequestData.requiredDate?.toFormattedDate() ?? "N/A", style: textTheme.tabText.copyWith(color: customColors.darkPrimary),)),
 
                         ],
                       )
@@ -152,7 +158,7 @@ class UrgentRequestCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ) : SizedBox();
   }
 
 

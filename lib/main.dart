@@ -1,7 +1,7 @@
 import 'package:blood_donation_management_system/core/routes/router.dart';
 import 'package:blood_donation_management_system/core/theme/theme_const.dart';
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
-import 'package:blood_donation_management_system/features/dashboard/presentation/dashboard.dart';
+import 'package:blood_donation_management_system/features/dashboard/presentation/Ui/dashboard.dart';
 import 'package:blood_donation_management_system/features/home/presentation/home.dart';
 import 'package:blood_donation_management_system/service_locator/locator.dart';
 import 'package:flutter/material.dart';
