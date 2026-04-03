@@ -1,18 +1,23 @@
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
+import 'package:blood_donation_management_system/features/dashboard/presentation/provider/dashboard_provier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/theme/theme_getter.dart';
 
-class AppointmentCard extends StatelessWidget {
+class AppointmentCard extends ConsumerWidget {
   const AppointmentCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
-    return Container(
+    final upcomingAppointment = ref.watch(dashboardNotifierProvider).dashboardDataModel?.data?.upcomingAppointment;
+
+    return upcomingAppointment!=null ? Container(
       padding: const EdgeInsets.all(16),
       width: 399,
       height: 250,
@@ -107,7 +112,7 @@ class AppointmentCard extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ) : SizedBox();
   }
 
 }

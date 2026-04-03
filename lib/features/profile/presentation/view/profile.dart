@@ -1,14 +1,13 @@
-import 'package:blood_donation_management_system/core/storage/app_storage.dart';
+import 'package:blood_donation_management_system/core/utils/date_formatter.dart';
+import 'package:blood_donation_management_system/core/widgets/Shimmer_widget.dart';
 import 'package:blood_donation_management_system/core/widgets/box_decoration.dart';
-import 'package:blood_donation_management_system/features/profile/presentation/notifier/profile_notifier.dart';
 import 'package:blood_donation_management_system/features/profile/presentation/provider/profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get_it/get_it.dart';
-
 import '../../../../core/theme/theme_getter.dart';
 import '../../../../core/widgets/input_decoration.dart';
+import '../../../../core/widgets/shimmer_box.dart';
 
 class ProfileScreen extends ConsumerStatefulWidget {
   const ProfileScreen({super.key});
@@ -18,81 +17,87 @@ class ProfileScreen extends ConsumerStatefulWidget {
 }
 
 class _ProfileScreenState extends ConsumerState<ProfileScreen> {
-  AppStorage storage = GetIt.I.get<AppStorage>();
- String? userId;
+
  @override
  void initState() {
    super.initState();
-    getUser();
-
  }
- void getUser () async{
-  userId = await storage.getUserId();
-  if(userId != null) ref.read(userProfileNotifierProvider.notifier).getProfile(userId: userId!);
- }
-
  @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+
+    final userData =  ref.watch(userProfileNotifierProvider);
+    final user =  userData.userProfileModel?.data;
+
+
+    return  userData.isLoading ? ShimmerWidget()  :  SafeArea(
+      child:  SingleChildScrollView(
+        padding:  EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: [
             // PROFILE CARD
-             SizedBox(height: 10,),
+            SizedBox(height: 10,),
              Container(
             width: 352,
-             height: 338,
-             decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: customColors.disabled),
+               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
+               decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: customColors.disabled),
              child: Column(
                mainAxisAlignment: MainAxisAlignment.center,
                children: [
-                 // Avatar
-                 Stack(
-                   children: [
-                     SizedBox(
-                       width:130,
-                       height: 130,
-                       child: const CircleAvatar(
-                         radius: 55,
-                          backgroundImage: NetworkImage(
-                              "https://images.pexels.com/photos/29914634/pexels-photo-29914634.jpeg"),
-                       ),
-                     ),
-                     Positioned(
-                       bottom: 0,
-                       right: 15,
-                       child: Container(
-                         padding: const EdgeInsets.all(6),
-                         decoration:  BoxDecoration(
-                           shape: BoxShape.circle,
-                           color:colorScheme.primary,
-                         ),
-                         child: SvgPicture.asset(
-                         "assets/images/Edit_icon.svg",
-                         width: 18,
-                           colorFilter: ColorFilter.mode(colorScheme.secondary,BlendMode.srcIn),
-                       ),
-                       ),
-                     )
-                   ],
+                 SizedBox(
+                   width:110,
+                   height: 110,
+                   child: const CircleAvatar(
+                     radius: 55,
+                     backgroundImage: AssetImage('assets/images/default_profile.jpg'),
+                   ),
                  ),
-                 const SizedBox(height: 20),
-
                  //User Name
+                 SizedBox(height: 15,),
                  Text(
-                   "User Name : Zar Ni",
-                   style:textTheme.bodyRegular.copyWith(
+                   user?.userName ?? "User",
+                   style:textTheme.subTitle.copyWith(
                      color:  customColors.darkPrimary,
                    ) ,
                  ),
-
+                  SizedBox(height: 15,),
+                 user?.donorInfo !=null ?Row(
+                  mainAxisAlignment:  MainAxisAlignment.center,
+                  children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 16,horizontal: 32),
+                    decoration: BoxDecoration(
+                      color: colorScheme.primary,
+                      borderRadius: BorderRadius.circular(30),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 8,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
+                    ),
+                    child: Row(children: [ SizedBox(
+                      width: 20,
+                      child: SvgPicture.asset(
+                        "assets/images/blood_icon.svg",
+                        height: 16,
+                        colorFilter: ColorFilter.mode(
+                          colorScheme.secondary,
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ) , Text("${user?.donorInfo?.bloodGroup ?? ''} ${user?.donorInfo?.bloodGroup?.contains('+') == true ? 'POSITIVE' : 'NEGATIVE'}",style: textTheme.tabText.copyWith(color: colorScheme.secondary),),
+                    ],),
+                  ),
+                  SizedBox(width: 20,),
+                  Text("Verified donor", style: textTheme.tabText.copyWith(color: customColors.disabled),),
+                ],) : SizedBox.shrink(),
                  const SizedBox(height: 20),
                   Text(
-                   "User ID : 000255",
+                   "email : ${user?.email ?? "NA"}",
                    style: textTheme.bodyRegular.copyWith(
                      fontWeight: FontWeight.w400,
                      color: customColors.darkPrimary
@@ -101,35 +106,27 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                  const SizedBox(height: 5),
 
                  //Blood type
-                 Text(
-                   "Blood-type : B+",
-                   style: textTheme.bodyRegular.copyWith(
-                       fontWeight: FontWeight.w400,
-                       color: customColors.darkPrimary
-                   ),
-                 ),
                ],
              ),
            ),
             const SizedBox(height: 20),
 
             // DONATION INFO
-            Container(
+           user?.donorInfo != null ? Container(
               width: 352,
-              height: 229,
-              decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: customColors.disabled),
+             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+             decoration: boxDecoration(cardColor: colorScheme.secondary, shadowColor: customColors.disabled),
               child:  Column(
                 mainAxisAlignment:  MainAxisAlignment.center,
                 children:  [
-                  Text("Last Donation : 28 Jan 2026",
+                  (user?.donorInfo?.lastDonationDate != null ) ?   Text("Last Donation : ${user?.donorInfo?.lastDonationDate?.toCustomFormattedDateOrEmpty() }",
                     style:textTheme.bodyRegular.copyWith(
                       fontWeight:  FontWeight.w400,
                       color:  customColors.darkPrimary,
                     ) ,
-                  ),
+                  ) : SizedBox(),
                   SizedBox(height: 8),
-
-                  Text("Birth of Date : 14 Feb 2025",
+                  Text("Birth of Date : ${user?.donorInfo?.dateOfBirth?.toCustomFormattedDateOrEmpty()}",
                     style:textTheme.bodyRegular.copyWith(
                       fontWeight:  FontWeight.w400,
                       color:  customColors.darkPrimary,
@@ -151,17 +148,16 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   ),
                 ],
               ),
-            ),
+            ) : const SizedBox.shrink(),
 
             const SizedBox(height: 20),
 
             // User Info
-            Container(
+            user?.donorInfo != null ?  Container(
               width: 352,
-              height: 424,
               decoration:  boxDecoration(cardColor: colorScheme.secondary, shadowColor:customColors.disabled),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment:  MainAxisAlignment.center,
@@ -188,55 +184,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       ),
                     ),
 
-                    //Medical Conditions
-                    SizedBox(height: 20,),
-                    Text("Medical Conditions" , style:  textTheme.bodyRegular.copyWith(color:  customColors.darkPrimary , fontWeight:  FontWeight.w400),),
-                    const SizedBox(height: 12,),
-                    Row(
-                      children: [
-                        Expanded(
-                          child:  SizedBox(
-                            height: 55,
-                            child: TextFormField(
-                              readOnly: true,
-                              style: TextStyle(
-                                color: customColors.darkPrimary
-                              ),
-                              decoration: buildInputDecoration(
-                                context: context,
-                                hintText: "None",
-                                hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  
-                                svg:  SvgPicture.asset(
-                                "assets/images/drop_down.svg",
-                              ),),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child:  SizedBox(
-                            height: 55,
-                            
-                            child: TextFormField(
-                              readOnly: true,
-                              style: TextStyle(
-                                color: customColors.darkPrimary
-                              ),
-                              decoration: buildInputDecoration(
-                                context: context,
-                                hintText: "Male",
-                                hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  
-                                svg:  SvgPicture.asset(
-                                "assets/images/drop_down.svg",
-                              ),),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-
                     //Phone Number
+                    const SizedBox(height: 12),
                     Text("Phone Number" , style:  textTheme.bodyRegular.copyWith(color:  customColors.darkPrimary , fontWeight:  FontWeight.w400),),
                     const SizedBox(height: 12,),
                     SizedBox(
@@ -260,134 +209,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   ],
                 ),
               ),
-            ),
-
+            ) : const SizedBox.shrink(),
             const SizedBox(height: 20),
 
-            // MEDICAL CARD
-            Container(
-              width: 352,
-              height: 289,
-              decoration:  boxDecoration(cardColor: colorScheme.secondary, shadowColor:customColors.disabled),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment:  MainAxisAlignment.center,
-                  children: [
-                    //Address
-                    Text("Allergies" , style:  textTheme.bodyRegular.copyWith(color:  customColors.darkPrimary , fontWeight: FontWeight.w400),),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      height: 55,
-                      child: TextFormField(
-                        readOnly: true,
-                        style: TextStyle(
-                            color: customColors.darkPrimary
-                          ),
-                        decoration: buildInputDecoration(
-                          hintText: "Seafood",
-                          context: context,
-                          hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  
-                          svg:  SvgPicture.asset(
-                          "assets/images/Edit_icon.svg",
-                          width: 15,
-                        ),),
-                      ),
-                    ),
-                    SizedBox(height: 30,),
-                    //Phone Number
-                    Text("Current Medications" , style:  textTheme.bodyRegular.copyWith(color:  customColors.darkPrimary , fontWeight:  FontWeight.w400),),
-                    const SizedBox(height: 12,),
-                    SizedBox(
-                      height: 55,
-                      child: TextFormField(
-                        readOnly: true,
-                        style: TextStyle(
-                            color: customColors.darkPrimary
-                          ),
-                        decoration: buildInputDecoration(
-                          hintText: "I'm takign through medicine.",
-                          context: context,
-                          hintStyle: textTheme.tabText.copyWith(color: customColors.darkPrimary, fontWeight: FontWeight.w400),  
-                          svg:  SvgPicture.asset(
-                          "assets/images/Edit_icon.svg",
-                          width: 15,
-                        ),),
-                      ),
-                    ),
-
-                  ],
-                ),
-              ),
-            ),
-
-
-            const SizedBox(height: 40),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _card({required Widget child}) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x33FF2D3D),
-            blurRadius: 12,
-            offset: Offset(0, 6),
-          )
-        ],
-      ),
-
-      child: child,
-    );
-  }
-
-  /// INPUT BOX
-  Widget _inputBox(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-
-      decoration: BoxDecoration(
-        color: const Color(0xffEFE4E4),
-        borderRadius: BorderRadius.circular(12),
-      ),
-
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(text),
-          const Icon(Icons.edit, color: Color(0xffFF2D3D), size: 18)
-        ],
-      ),
-    );
-  }
-
-  /// DROPDOWN STYLE BOX
-  Widget _dropdownBox(String text) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-
-      decoration: BoxDecoration(
-        color: const Color(0xffEFE4E4),
-        borderRadius: BorderRadius.circular(12),
-      ),
-
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(text),
-          const Icon(Icons.arrow_drop_down, color: Color(0xffFF2D3D))
-        ],
       ),
     );
   }

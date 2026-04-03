@@ -1,5 +1,7 @@
 import 'package:blood_donation_management_system/core/storage/app_storage.dart';
+import 'package:blood_donation_management_system/core/theme/extension/bdms_colors.dart';
 import 'package:blood_donation_management_system/core/theme/theme_getter.dart';
+import 'package:blood_donation_management_system/features/authentication/Logout/views/notifer/logout_state_model.dart';
 import 'package:blood_donation_management_system/features/authentication/Logout/views/provider/logout_provider.dart';
 import 'package:blood_donation_management_system/features/dashboard/widgets/drawerItem.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +20,6 @@ class SideDrawer extends ConsumerStatefulWidget {
 
 class _SideDrawerState extends ConsumerState<SideDrawer> {
   AppStorage _storage = GetIt.I.get<AppStorage>();
-
   String? token;
 
   @override
@@ -39,6 +40,12 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
     final customColors = context.colors;
     final textTheme = context.bdmsText;
     final bool isLoggedIn = token != null && token!.isNotEmpty;
+    ref.listen(logoutNotifierProvider, (previous, next) {
+      if (next.isSuccess) {
+        Navigator.pop(context);
+        context.go('/');
+      }
+    });
     return Drawer(
          width: MediaQuery.of(context).size.width * 0.9,
          backgroundColor: colorScheme.secondary,
@@ -60,7 +67,10 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                  },),
                ),
                const SizedBox(height: 40),
+
                     // Drawer Items
+
+               //Home
                 InkWell(
                   onTap: (){
                     Navigator.pop(context);
@@ -72,6 +82,8 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                     "assets/images/home_icon.svg",
                   ),text:  "Home"),
                 ),
+
+                //announcement
                 InkWell(
                   onTap: () => {},
                   child: DrawerItem(svg:  SvgPicture.asset(
@@ -80,29 +92,14 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                     "assets/images/announcment_icon.svg",
                   ),text:  "Announcements"),
                 ),
-               (token != null ) ? InkWell(
-                 onTap:  ()  {
-                   Navigator.pop(context);
-                    ref.read(logoutNotifierProvider.notifier).logout();
-                    context.go('/');
-                    },
-                 child: DrawerItem(svg:  SvgPicture.asset(
-                   width: 30,
-                   height: 30,
-                   "assets/images/logout_icon.svg",
-                 ),text:  "Logout"),
-               ) : InkWell(
-                 onTap: (){
-                   context.go('/login');
-                 },
-                 child:  DrawerItem(svg:  SvgPicture.asset(
-                   colorFilter: ColorFilter.mode(customColors.darkPrimary!, BlendMode.srcIn),
-                   width: 30,
-                   height: 30,
-                   "assets/images/Login_icon.svg",
-                 ),text:  "Login"),
-               ),
-               (!widget.isDashboard && token != null) ?  InkWell(
+
+               //logout or Login
+               Consumer(builder: (context,ref,child){
+                 final isLogout = ref.watch(logoutNotifierProvider);
+                 return drawerItem(isLoggedIn,isLogout, context, ref, customColors);
+               },),
+               //Dashboard
+               (!widget.isDashboard && isLoggedIn ) ?  InkWell(
                  onTap: () {
                    Navigator.pop(context);
                    context.go('/dashboard');
@@ -114,6 +111,8 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                    "assets/images/dashboard_icon.svg",
                  ),text:  "Dashboard"),
                ) : SizedBox(),
+
+               //Settings
                InkWell(child: DrawerItem(svg:  SvgPicture.asset(width: 30, height: 30, "assets/images/setting_icon.svg",),text:  "Settings")),
                const Spacer(),
                Padding(
@@ -126,4 +125,34 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                 ),
        );
   }
+}
+
+Widget drawerItem(bool isLoggedIn,LogoutStateModel isLogout, BuildContext context, WidgetRef ref, BDMSColors customColors){
+ if(isLogout.isLoading){
+   return Center(child: CircularProgressIndicator());
+ }
+  if (isLoggedIn)
+   {
+     return InkWell(onTap:  () async {
+         await  ref.read(logoutNotifierProvider.notifier).logout();
+         }, child: DrawerItem(svg:  SvgPicture.asset(
+         width: 30,
+         height: 30,
+         "assets/images/logout_icon.svg",
+       ),text:  "Logout"),
+     );
+   }
+
+ return  InkWell(
+   onTap: (){
+     context.go('/login');
+   },
+   child:  DrawerItem(svg:  SvgPicture.asset(
+     colorFilter: ColorFilter.mode(customColors.darkPrimary!, BlendMode.srcIn),
+     width: 30,
+     height: 30,
+     "assets/images/Login_icon.svg",
+   ),text:  "Login"),
+);
+
 }

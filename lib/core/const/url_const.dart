@@ -7,5 +7,6 @@ class  UrlConst{
   static const String logout = "/auth/logout";
   static const String appointment = "/appointments";
   static const String dashboard = "/user-dashboard";
+  static const String announcements = "/announcements";
   static String becomeDonorPath(String userId) => "/user/$userId/donors";
 }

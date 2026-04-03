@@ -19,7 +19,7 @@ const DonationRequestWidget({super.key, required this.title, required this.value
             color: customColors.darkPrimary
         ),),
         Text(value.toString(), style: textTheme.title.copyWith(
-            fontSize: 128,
+          fontSize: 98,
             color: colorScheme.primary,
             height: 1.0
         ),),

@@ -4,13 +4,15 @@ class ProfileNotifierState {
   final bool isLoading;
   final bool isSuccess;
   final bool isFailed;
-  final UserProfileModel? userProfileModel;
+  UserProfileModel? userProfileModel;
+  String? errorMessage;
 
   ProfileNotifierState({
     required this.isLoading,
     required this.isSuccess,
     required this.isFailed,
     this.userProfileModel,
+    this.errorMessage
   });
 
   ProfileNotifierState copyWith({
@@ -18,12 +20,14 @@ class ProfileNotifierState {
     bool? isSuccess,
     bool? isFailed,
     UserProfileModel? userProfileModel,
+    String? errorMessage,
   }) {
     return ProfileNotifierState(
       isLoading: isLoading ?? this.isLoading,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailed: isFailed ?? this.isFailed,
       userProfileModel: userProfileModel ?? this.userProfileModel,
+    errorMessage:  errorMessage ?? this.errorMessage
     );
   }
 }

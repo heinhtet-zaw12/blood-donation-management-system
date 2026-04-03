@@ -105,7 +105,7 @@ class UrgentRequestCard extends ConsumerWidget {
                           ),
                           SizedBox(width: 10,),
                           Expanded(
-                            child: Text(urgentRequestData.hospitalId.toString(),
+                            child: Text(urgentRequestData.hospital!.name.toString(),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: textTheme.tabText.copyWith(color: customColors.darkPrimary),),
