@@ -3,26 +3,26 @@ import 'package:blood_donation_management_system/features/dashboard/presentation
 import 'package:blood_donation_management_system/features/dashboard/presentation/provider/dashboard_provier.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/result/result.dart';
+
 class DashboardNotifier extends Notifier<DashboardStateModel>{
   @override
   DashboardStateModel build() => DashboardStateModel(isLoading: false, isSuccess: false, isFailed: false);
   void getDashboard() async{
-      try{
-        state = state.copyWith(isLoading:  true, isSuccess:  false, isFailed:  false);
-        final DashboardDataModel? dashboardDataModel = await ref.read(dashboardRepositoryProvider).getDashboardData();
-        if(dashboardDataModel != null){
-          state = state.copyWith(isLoading:  false, isSuccess:  true, isFailed:  false , dashboardDataModel:  dashboardDataModel);
-        }
-        else {
-          state = state.copyWith(isLoading: false, isFailed: true, errorMessage: "Failed to fetch Dashboard.");
-        }
-      }catch(e){
-        state = state.copyWith(
+    state = state.copyWith(isLoading:  true, isSuccess:  false, isFailed:  false);
+    final  result = await ref.read(dashboardRepositoryProvider).getDashboardData();
+    state = switch (result) {
+      Success(data: final model) => state.copyWith(
           isLoading: false,
-          isFailed : true,
-          errorMessage: e.toString().replaceAll("Exception: ", ""),
-        );
-      }
+          isSuccess: true,
+         dashboardDataModel  : model
+      ),
+      Failure(error: final msg) => state.copyWith(
+          isLoading: false,
+          isFailed: true,
+          errorMessage: msg
+      ),
+    };
     }
 
 }

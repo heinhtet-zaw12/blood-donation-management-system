@@ -20,7 +20,17 @@ class RegisterService {
      }
     return null;
    }on DioException catch(e){
-     throw Exception('Failed to Register: ${e.message}');
+     final responseData = e.response?.data;
+     if (responseData == null || responseData is! Map) {
+       throw Exception('Connection error or empty response');
+     }
+     final errors = responseData['errors'];
+     if (errors is Map && errors.isNotEmpty) {
+       final firstErrorMessage = errors.values.first;
+       throw Exception(firstErrorMessage is List ? firstErrorMessage.first : firstErrorMessage);
+     }
+     final String message = responseData['message'] ?? 'Login failed';
+     throw Exception(message);
    }
 
  }

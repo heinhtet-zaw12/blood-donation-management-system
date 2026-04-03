@@ -5,7 +5,7 @@ import 'package:blood_donation_management_system/features/authentication/Logout/
 import 'package:blood_donation_management_system/features/authentication/Logout/views/notifer/logout_state_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final logoutServiceProvider = Provider((ref) => LogoutService());
+final logoutServiceProvider = Provider<LogoutService>((ref) => LogoutService());
 final logoutRepositoryProvider = Provider<IlogoutRepository>((ref){
   final service = ref.watch(logoutServiceProvider);
   return LogoutRepositoryImpl(service);

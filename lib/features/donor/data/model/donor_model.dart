@@ -37,7 +37,7 @@ class DonorProfileModel {
       gender: json['gender'] ?? '',
       bloodGroup: json['bloodGroup'] ?? '',
       weight: json['weight'] != null ? int.tryParse(json['weight'].toString()) : null,
-      lastDonationDate: json['lastDonationDate'] ?? '',
+      lastDonationDate: json['lastDonationDate'] ,
       remarks: json['remarks'] ?? '',
       emergencyContact: json['emergencyContact'] ?? '',
       emergencyPhone: json['emergencyPhone'] ?? '',

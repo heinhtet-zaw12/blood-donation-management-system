@@ -3,15 +3,19 @@ class AppointmentStateModel {
  final  bool isLoading;
  final  bool isSuccess;
  final  bool isError;
+ String? errorMessage;
    AppointmentModel? appointmentModel;
-   AppointmentStateModel({required this.isLoading, required this.isSuccess, required this.isError, this.appointmentModel});
+   AppointmentStateModel({required this.isLoading, required this.isSuccess, required this.isError, this.appointmentModel , this.errorMessage});
 
   AppointmentStateModel copyWith({
     bool? isLoading,
     bool? isSuccess,
     bool? isError,
+    String? errorMessage,
   AppointmentModel? appointmentModel}){
-    return AppointmentStateModel(isLoading: isLoading ?? this.isLoading, isSuccess: isSuccess ?? this.isSuccess, isError: isError ?? this.isError , appointmentModel:  appointmentModel ?? this.appointmentModel);
+    return AppointmentStateModel(isLoading: isLoading ?? this.isLoading, isSuccess: isSuccess ?? this.isSuccess, isError: isError ?? this.isError ,
+        errorMessage:  errorMessage ?? this.errorMessage,
+        appointmentModel:  appointmentModel ?? this.appointmentModel);
 
   }
 

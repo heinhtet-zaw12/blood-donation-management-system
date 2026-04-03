@@ -81,9 +81,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                 children: [
                   Align(
                     alignment: Alignment.topRight,
-                    child: SvgPicture.asset(
-                      "assets/images/close_icon.svg",
-                      width: 20,
+                    child:    GestureDetector(
+                      onTap:  (){
+                        Navigator.pop(context);
+                      },
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: SvgPicture.asset(
+                          "assets/images/close_icon.svg",
+                          width: 20,
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -110,6 +118,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         buildLabel("Username",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: buildInputDecoration(
                             context: context,
                             hintText: "Username",
@@ -119,7 +128,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             width: 18,
                           ),),
                           validator: (value) {
-                            if (value == null || value.isEmpty) return "Username can't be empty" ;
+                            if (value == null || value.isEmpty) return "Username is required" ;
                             if (value.length < 6) return "Username must be at least 6 character";
                             return null;
                           },
@@ -130,6 +139,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         buildLabel("Email address", customColors.textPrimary!, textTheme) ,
                         const SizedBox(height: 6),
                         TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           decoration: buildInputDecoration(
                             context: context,
                             hintText: "Email address",
@@ -139,7 +149,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             width: 18,
                           ),),
                           validator: (value) {
-                            if (value == null || value.isEmpty) return "Email can't be empty";
+                            if (value == null || value.isEmpty) return "Email is required";
                             if (!emailRegex.hasMatch(value)) return 'Invalid email format';
                             return null;
                           },
@@ -150,6 +160,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         buildLabel("Password",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           obscureText: true,
                           decoration: buildInputDecoration(
                             context: context,
@@ -160,7 +171,8 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                             width: 18,
                           ),),
                           validator: (value) {
-                            if (value == null || value.length < 6) return 'Password must be at least 6 characters';
+                            if (value == null || value.isEmpty) return 'Password is required';
+                           if(value.length < 8)  return  'Password must be at least 8 characters';
                             _password = value;
                             return null;
                           },
@@ -172,6 +184,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         buildLabel("Password Confirmation",customColors.textPrimary! , textTheme),
                         const SizedBox(height: 6),
                         TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           obscureText: true,
                           decoration: buildInputDecoration(
                             context: context,
@@ -191,6 +204,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                          //Terms and condition
                         const SizedBox(height: 18),
                         FormField<bool>(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
                           initialValue: _agreeToTerms,
                           validator: (value) {
                             if (value == false) return 'You need to agree to terms and conditions';
@@ -229,25 +243,38 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                         const SizedBox(height: 20),
                         Consumer(builder: (context, ref, child){
                           final stateModel = ref.watch(registerNotifierProvider);
-                          return stateModel.isLoading
-                              ? const Center(
-                            child: CircularProgressIndicator(),
-                          ):
-                          SizedBox(
-                            height: 50,
-                            width: 282,
-                            child: ElevatedButtonWidget(text: "Register",
-                              onPressed: (){
-                                if (_formKey.currentState!.validate()) {
-                                  _formKey.currentState!.save();
-                                  ref.read(registerNotifierProvider.notifier).register(userName: _username, email: _email, password: _password, passwordConfirm: _confirmPassword);
-                                }
-                              },svg: SvgPicture.asset(
-                                "assets/images/Register_icon.svg",
-                                width: 18,
-                                colorFilter: ColorFilter.mode(colorScheme.secondary,BlendMode.srcIn ),
-                              ) ,),
-                          ) ;
+                          return Column(
+                            children: [
+                              if (stateModel.isError && stateModel.errorMessage != null && !stateModel.isLoading)
+                                Padding(padding: const EdgeInsets.only(bottom: 10),
+                                  child: Text(
+                                    stateModel.errorMessage!,
+                                    style: const TextStyle(color: Colors.red),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              stateModel.isLoading
+                                  ? const Center(
+                                child: CircularProgressIndicator(),
+                              ):
+                              SizedBox(
+                                height: 50,
+                                width: 282,
+                                child: ElevatedButtonWidget(text: "Register",
+                                  onPressed: (){
+                                    if (_formKey.currentState!.validate()) {
+                                      _formKey.currentState!.save();
+                                      ref.read(registerNotifierProvider.notifier).register(userName: _username, email: _email, password: _password, passwordConfirm: _confirmPassword);
+                                    }
+                                  },svg: SvgPicture.asset(
+                                    "assets/images/Register_icon.svg",
+                                    width: 18,
+                                    colorFilter: ColorFilter.mode(colorScheme.secondary,BlendMode.srcIn ),
+                                  ) ,),
+                              ),
+                            ],
+                          );
+
                         }),
                       ],)),
 
@@ -261,13 +288,13 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                           color: customColors.darkPrimary
                       ),),
                       SizedBox(width: 5,),
-                      Text(
+                      TextButton(onPressed: () => context.go('/login'), child: Text(
                         "Log In",
                         style:  textTheme.tabText.copyWith(
                             decoration: TextDecoration.underline,
                             decorationColor: colorScheme.primary,
                             color: colorScheme.primary
-                        ),
+                        ), ),
                       )
                     ],
                   )

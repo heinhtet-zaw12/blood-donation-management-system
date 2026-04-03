@@ -23,39 +23,19 @@ class _DonationEligibilityCardState
     extends ConsumerState<DonationEligibilityCard>
     with SingleTickerProviderStateMixin {
 
-  static const primaryRed = Color(0xffFF2D3A);
-  static const darkRed = Color(0xff7A0000);
+  final int totalCycleDays = 90;
 
   late AnimationController _controller;
   late Animation<double> _progressAnimation;
   late Animation<int> _countAnimation;
 
-  final int totalDays = 85;
-  final double percent = 0.75;
-
   @override
   void initState() {
     super.initState();
-
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1400),
     );
-
-    final curved =
-    CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic);
-
-    _progressAnimation = Tween<double>(
-      begin: 0,
-      end: percent,
-    ).animate(curved);
-
-    _countAnimation = IntTween(
-      begin: 0,
-      end: totalDays,
-    ).animate(curved);
-
-    _controller.forward();
   }
 
   @override
@@ -69,8 +49,19 @@ class _DonationEligibilityCardState
     final colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
     final textTheme = context.bdmsText;
-    final remainingDays = ref.watch(dashboardNotifierProvider.select((state)=> state.dashboardDataModel?.data?.donationStatus?.daysRemaining));
+    final donationStatus = ref.watch(dashboardNotifierProvider.select(
+            (state) => state.dashboardDataModel?.data?.donationStatus));
 
+    final int remainingDays = (donationStatus?.daysRemaining ?? 0).toInt();
+    final double daysSpent = (totalCycleDays - remainingDays).clamp(0, totalCycleDays).toDouble();
+    final double percent = daysSpent / totalCycleDays;
+
+    final curved = CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic);
+    _progressAnimation = Tween<double>(begin: 0, end: percent).animate(curved);
+    _countAnimation = IntTween(begin: 0, end: remainingDays).animate(curved);
+    if (donationStatus != null) {
+      _controller.forward();
+    }
     return Container(
       padding: const EdgeInsets.all(24),
       height: 346,

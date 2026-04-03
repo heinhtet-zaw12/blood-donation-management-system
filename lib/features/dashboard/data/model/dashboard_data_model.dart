@@ -89,14 +89,14 @@ class DonationStatus {
     daysRemaining = json['days_remaining'];
     lastDonationDate = json['last_donation_date'];
   }
-  dynamic nextEligibleDate;
+  String? nextEligibleDate;
   bool? isEligible;
   num? daysRemaining;
-  dynamic lastDonationDate;
-DonationStatus copyWith({  dynamic nextEligibleDate,
+  String? lastDonationDate;
+DonationStatus copyWith({  String? nextEligibleDate,
   bool? isEligible,
   num? daysRemaining,
-  dynamic lastDonationDate,
+  String? lastDonationDate,
 }) => DonationStatus(  nextEligibleDate: nextEligibleDate ?? this.nextEligibleDate,
   isEligible: isEligible ?? this.isEligible,
   daysRemaining: daysRemaining ?? this.daysRemaining,
@@ -131,7 +131,8 @@ class UrgentBloodRequest {
       this.approvedAt, 
       this.createdAt, 
       this.updatedAt, 
-      this.deletedAt,});
+      this.deletedAt, 
+      this.hospital,});
 
   UrgentBloodRequest.fromJson(dynamic json) {
     id = json['id'];
@@ -151,6 +152,7 @@ class UrgentBloodRequest {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     deletedAt = json['deleted_at'];
+    hospital = json['hospital'] != null ? Hospital.fromJson(json['hospital']) : null;
   }
   num? id;
   num? userId;
@@ -169,6 +171,7 @@ class UrgentBloodRequest {
   String? createdAt;
   String? updatedAt;
   dynamic deletedAt;
+  Hospital? hospital;
 UrgentBloodRequest copyWith({  num? id,
   num? userId,
   num? hospitalId,
@@ -186,6 +189,7 @@ UrgentBloodRequest copyWith({  num? id,
   String? createdAt,
   String? updatedAt,
   dynamic deletedAt,
+  Hospital? hospital,
 }) => UrgentBloodRequest(  id: id ?? this.id,
   userId: userId ?? this.userId,
   hospitalId: hospitalId ?? this.hospitalId,
@@ -203,6 +207,7 @@ UrgentBloodRequest copyWith({  num? id,
   createdAt: createdAt ?? this.createdAt,
   updatedAt: updatedAt ?? this.updatedAt,
   deletedAt: deletedAt ?? this.deletedAt,
+  hospital: hospital ?? this.hospital,
 );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -223,10 +228,15 @@ UrgentBloodRequest copyWith({  num? id,
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
     map['deleted_at'] = deletedAt;
+    if (hospital != null) {
+      map['hospital'] = hospital?.toJson();
+    }
     return map;
   }
 
 }
+
+
 
 class UpcomingAppointment {
   UpcomingAppointment({
@@ -324,23 +334,71 @@ UpcomingAppointment copyWith({  num? id,
 class Hospital {
   Hospital({
       this.id, 
-      this.name,});
+      this.name, 
+      this.address, 
+      this.phone, 
+      this.email, 
+      this.isActive, 
+      this.isVerified, 
+      this.createdAt, 
+      this.updatedAt, 
+      this.deletedAt,});
 
   Hospital.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
+    address = json['address'];
+    phone = json['phone'];
+    email = json['email'];
+    isActive = json['is_active'];
+    isVerified = json['is_verified'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    deletedAt = json['deleted_at'];
   }
   num? id;
   String? name;
+  String? address;
+  String? phone;
+  String? email;
+  bool? isActive;
+  bool? isVerified;
+  String? createdAt;
+  String? updatedAt;
+  dynamic deletedAt;
 Hospital copyWith({  num? id,
   String? name,
+  String? address,
+  String? phone,
+  String? email,
+  bool? isActive,
+  bool? isVerified,
+  String? createdAt,
+  String? updatedAt,
+  dynamic deletedAt,
 }) => Hospital(  id: id ?? this.id,
   name: name ?? this.name,
+  address: address ?? this.address,
+  phone: phone ?? this.phone,
+  email: email ?? this.email,
+  isActive: isActive ?? this.isActive,
+  isVerified: isVerified ?? this.isVerified,
+  createdAt: createdAt ?? this.createdAt,
+  updatedAt: updatedAt ?? this.updatedAt,
+  deletedAt: deletedAt ?? this.deletedAt,
 );
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['id'] = id;
     map['name'] = name;
+    map['address'] = address;
+    map['phone'] = phone;
+    map['email'] = email;
+    map['is_active'] = isActive;
+    map['is_verified'] = isVerified;
+    map['created_at'] = createdAt;
+    map['updated_at'] = updatedAt;
+    map['deleted_at'] = deletedAt;
     return map;
   }
 

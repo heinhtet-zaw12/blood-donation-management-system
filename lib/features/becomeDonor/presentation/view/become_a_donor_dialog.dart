@@ -404,7 +404,7 @@ class _BecomeDonorDialogState extends ConsumerState<BecomeDonorDialog> {
                               height: 50,
                               width: double.infinity,
                               child: ElevatedButtonWidget(
-                              text: stateModel.isError ? "Retry" : "Complete Registration",
+                              text:  "Complete Registration",
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     _formKey.currentState!.save();

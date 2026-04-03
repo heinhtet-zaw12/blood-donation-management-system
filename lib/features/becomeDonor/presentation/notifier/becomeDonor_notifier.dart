@@ -2,6 +2,8 @@ import 'package:blood_donation_management_system/features/becomeDonor/presentati
 import 'package:blood_donation_management_system/features/becomeDonor/presentation/provider/become_donor_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/result/result.dart';
+
 class BecomedonorNotifier extends Notifier<BecomeDonorStateModel>{
   @override
   build() {
@@ -12,22 +14,20 @@ class BecomedonorNotifier extends Notifier<BecomeDonorStateModel>{
     String? lastDonationDate,
     String? medicalRemark,
   }) async{
-    try{
-      state = state.copyWith(isLoading:  true,isError: false, isSuccess:  false);
-      final response = await ref.read(becomeDonorRepositoryProvider).becomeDonor(userId: userId, nrcNo: nrcNo, dateOfBirth: dateOfBirth, gender: gender, emergencyPhone: emergencyPhone, address: address, bloodGroup: bloodGroup, weight: weight , emergencyContact:  emergencyContact, lastDonationDate:  lastDonationDate ,medicalRemark:  medicalRemark);
-      if(response != null){
-        state = state.copyWith(isLoading:  false, isSuccess:  true, isError:  false);
-      }
-      else {
-        state = state.copyWith(isLoading: false, isError: true, errorMessage: "Failed to register as donor.");
-      }
-   }catch (e){
-      state = state.copyWith(
-        isLoading: false,
-        isError: true,
-        errorMessage: e.toString().replaceAll("Exception: ", ""),
-      );
-    }
+    state = state.copyWith(isLoading:  true,isError: false, isSuccess:  false);
+    final result = await ref.read(becomeDonorRepositoryProvider).becomeDonor(userId: userId, nrcNo: nrcNo, dateOfBirth: dateOfBirth, gender: gender, emergencyPhone: emergencyPhone, address: address, bloodGroup: bloodGroup, weight: weight , emergencyContact:  emergencyContact, lastDonationDate:  lastDonationDate ,medicalRemark:  medicalRemark);
+    state = switch (result) {
+      Success(data: final model) => state.copyWith(
+          isLoading: false,
+          isSuccess: true,
+          donorModel  : model
+      ),
+      Failure(error: final msg) => state.copyWith(
+          isLoading: false,
+          isError: true,
+          errorMessage: msg
+      ),
+    };
   }
 
 }

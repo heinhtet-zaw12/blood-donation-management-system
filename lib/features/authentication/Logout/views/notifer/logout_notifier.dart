@@ -7,9 +7,9 @@ class LogoutNotifier extends Notifier<LogoutStateModel> {
   LogoutStateModel build() {
    return LogoutStateModel(isLoading: false,isSuccess:  false, isFailed: false);
   }
-  void logout() {
+  Future<void> logout() async{
     state = state.copyWith(isLoading: true);
-     ref.read(logoutRepositoryProvider).logout();
+   await  ref.read(logoutRepositoryProvider).logout();
     state = LogoutStateModel(isLoading: false, isSuccess: true, isFailed: false);
   }
 
