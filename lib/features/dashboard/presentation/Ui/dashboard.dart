@@ -11,7 +11,6 @@ import '../../../../../core/theme/theme_getter.dart';
 import '../../../profile/presentation/provider/profile_provider.dart';
 import '../../widgets/appointment_card.dart';
 import '../../widgets/donation_eligibility_card.dart';
-import '../../../../core/widgets/shimmer_box.dart';
 import '../../widgets/urgent_blood_request_card.dart';
 
 

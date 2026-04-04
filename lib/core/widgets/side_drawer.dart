@@ -67,9 +67,7 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
                  },),
                ),
                const SizedBox(height: 40),
-
-                    // Drawer Items
-
+               // Drawer Items
                //Home
                 InkWell(
                   onTap: (){
@@ -85,7 +83,9 @@ class _SideDrawerState extends ConsumerState<SideDrawer> {
 
                 //announcement
                 InkWell(
-                  onTap: () => {},
+                  onTap: () => {
+                    context.go('/announcements')
+                  },
                   child: DrawerItem(svg:  SvgPicture.asset(
                     width: 30,
                     height: 30,
