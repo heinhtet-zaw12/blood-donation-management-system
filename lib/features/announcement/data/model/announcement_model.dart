@@ -8,16 +8,16 @@ class AnnouncementModel {
   AnnouncementModel.fromJson(dynamic json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? AnnouncementData.fromJson(json['data']) : null;
     status = json['status'];
   }
   bool? success;
   String? message;
-  Data? data;
+  AnnouncementData? data;
   num? status;
 AnnouncementModel copyWith({  bool? success,
   String? message,
-  Data? data,
+  AnnouncementData? data,
   num? status,
 }) => AnnouncementModel(  success: success ?? this.success,
   message: message ?? this.message,

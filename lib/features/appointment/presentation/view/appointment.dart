@@ -38,7 +38,7 @@ class _AppointmentState extends ConsumerState<Appointment> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if(appointment.isLoading)  ShimmerWidget(),
+        if(appointment.isLoading)   ShimmerWidget(),
         if(appointment.isError)  Center(child: Column(mainAxisAlignment: MainAxisAlignment.center,
                children: [
                const Icon(Icons.error_outline, size: 48, color: Colors.red), const SizedBox(height: 16),

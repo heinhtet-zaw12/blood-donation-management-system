@@ -1,4 +1,5 @@
 
+import 'package:blood_donation_management_system/features/announcement/presentation/ui/announcments_screen.dart';
 import 'package:blood_donation_management_system/features/authentication/Login/presentation/view/login_screen.dart';
 import 'package:blood_donation_management_system/features/authentication/register/presentation/view/register_screen.dart';
 import 'package:blood_donation_management_system/features/dashboard/presentation/Ui/dashboard.dart';
@@ -26,6 +27,9 @@ final router = GoRouter(
     GoRoute(
       path: '/login',
       builder: (context, state) =>  LoginScreen(),
+    ),
+    GoRoute(path: '/announcements',
+      builder: (context, state) =>  AnnouncementsScreen(),
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
