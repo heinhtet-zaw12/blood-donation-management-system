@@ -2,7 +2,7 @@ import 'package:blood_donation_management_system/core/widgets/elevated_button_wi
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-SizedBox SubmitButton(BuildContext context) {
+SizedBox SubmitButton(BuildContext context,{required VoidCallback onPressed}) {
   final colorScheme = Theme.of(context).colorScheme;
 
   return SizedBox(
@@ -10,7 +10,7 @@ SizedBox SubmitButton(BuildContext context) {
     height: 50,
     child: ElevatedButtonWidget(
       text: "Submit",
-      onPressed: () {},
+      onPressed: onPressed,
       svg: SvgPicture.asset(
         "assets/images/submit_icon.svg",
         width: 18,

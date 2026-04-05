@@ -185,12 +185,6 @@ void initState() {
                   padding: const EdgeInsets.symmetric(horizontal: 75),
                   child: NextButton(context: context,
                   onPressed: () {
-                    ref.read(donateFormProvider.notifier).state =
-                        ref.read(donateFormProvider).copyWith(
-                      name: _usernameController.text,
-                      phone: _contactNumController.text,
-                      bloodType: selectedValue,
-                    );
 
                     ref.read(donateStepProvider.notifier).state =
                         DonateStep.second;

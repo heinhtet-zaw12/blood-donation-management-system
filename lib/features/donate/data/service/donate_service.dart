@@ -6,21 +6,21 @@ class DonateApiService {
   final Dio dio = GetIt.I<Dio>(instanceName: 'auth');
 
   Future<void> createDonation({
-    required int userId,
+    required String userId,
     required Map<String, dynamic> body,
   }) async {
     try {
       final response = await dio.post(
-        "/api/v1/$userId/donations",
+        "/$userId${UrlConst.donation}",
         data: body,
       );
 
-      if (response.statusCode != 201) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
         throw Exception("Failed to create donation");
       }
     } on DioException catch (e) {
       final error = e.response?.data;
-      throw Exception(error?['message'] ?? "API Error");
+      throw Exception(error?['message'] ?? "Donation API Error");
     }
   }
 }
