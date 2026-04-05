@@ -15,6 +15,7 @@ class AnnouncementsNotifier extends Notifier<AnnouncementsStateModel>{
       Success(data: final model) => state.copyWith(
           isLoading: false,
           isSuccess: true,
+          errorMessage: null,
           announcementModel : model
       ),
       Failure(error: final msg) => state.copyWith(

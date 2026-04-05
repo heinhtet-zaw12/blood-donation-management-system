@@ -36,18 +36,11 @@ class _BecomeDonorDialogState extends ConsumerState<BecomeDonorDialog> {
   String? _emergencyPhone;
   String? _address;
   final _formKey =  GlobalKey<FormState>();
-  AppStorage storage = GetIt.I.get<AppStorage>();
-  String? userId;
   @override
   void initState() {
     super.initState();
-    getUser();
-
   }
 
-  void getUser () async{
-    userId = await storage.getUserId();
-  }
 
 @override
   Widget build(BuildContext context) {
@@ -382,8 +375,6 @@ class _BecomeDonorDialogState extends ConsumerState<BecomeDonorDialog> {
                       ),
 
                       SizedBox(height: 30,),
-
-
                       Consumer(builder: (context, ref, child) {
                         final stateModel = ref.watch(becomeDonorNotifierProvider);
 
@@ -417,7 +408,6 @@ class _BecomeDonorDialogState extends ConsumerState<BecomeDonorDialog> {
                                         _weight != null  && _emergencyContact != null;
                                     if (isDataComplete) {
                                       ref.read(becomeDonorNotifierProvider.notifier).becomeDonor(
-                                          userId: userId!,
                                           nrcNo: _nrcNo!,
                                           dateOfBirth: _dateOfBirth!,
                                           gender: _selectedGender!,

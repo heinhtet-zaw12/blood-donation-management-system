@@ -21,46 +21,35 @@ class DashboardScreen extends ConsumerStatefulWidget {
 }
 
 class _DashboardScreenState extends ConsumerState<DashboardScreen> {
-  AppStorage _appStorage = GetIt.I.get<AppStorage>();
 
   @override
   void initState() {
     super.initState();
-    fetchUser();
     WidgetsBinding.instance.addPostFrameCallback((_) {
     ref.read(dashboardNotifierProvider.notifier).getDashboard();
+    ref.read(userProfileNotifierProvider.notifier).getProfile();
     });
 
   }
-  void fetchUser() async{
-    String? userId = await _appStorage.getUserId();
-   if(userId != null)  ref.read(userProfileNotifierProvider.notifier).getProfile(userId: userId);
 
-  }
   void retry(){
     ref.read(dashboardNotifierProvider.notifier).getDashboard();
-    fetchUser();
+    ref.read(userProfileNotifierProvider.notifier).getProfile();
   }
   @override
   Widget build(BuildContext context) {
-    final isLoading = ref.watch(
-        dashboardNotifierProvider.select((state) => state.isLoading)
-    );
-    final isFailed = ref.watch(
-        dashboardNotifierProvider.select((state) => state.isFailed)
-    );
+    final isLoading = ref.watch(dashboardNotifierProvider.select((state) => state.isLoading));
+    final isFailed = ref.watch(dashboardNotifierProvider.select((state) => state.isFailed));
     final isFailedUser = ref.watch(userProfileNotifierProvider.select((state) => state.isFailed));
     final isLoadingUser = ref.watch(userProfileNotifierProvider.select((state) => state.isLoading));
     final isloading =isLoading || isLoadingUser;
-    final isError = isFailed || isFailedUser;
+    final isAnyFailed = isFailed || isFailedUser;
 
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
     final customColors = context.colors;
-    final textTheme = context.bdmsText;
     return Scaffold(
       backgroundColor: customColors.background,
       body: SafeArea(
-        child: buildDashboard(isloading,isError),
+        child: buildDashboard(isloading,isAnyFailed),
       ),
     );
   }
@@ -89,7 +78,7 @@ class _DashboardScreenState extends ConsumerState<DashboardScreen> {
       );
     }
     return SingleChildScrollView(
-                 child: Column(
+      child: Column(
           children:
           [ //Become a life Saver
             Padding(

@@ -6,13 +6,11 @@ class ShimmerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const  Expanded(
-      child: Column(children: [
-        SizedBox(height: 20),
-        Center(child: ShimmerBox(width: 350, height: 250)),
-        SizedBox(height: 30),
-        Expanded(child: Center(child: ShimmerBox(width: 350, height: double.infinity))),
-      ],),
-    ) ;
+    return  Column(children: [
+      SizedBox(height: 20),
+      Center(child: ShimmerBox(width: 350, height: 250)),
+      SizedBox(height: 30),
+      Expanded(child: Center(child: ShimmerBox(width: 350, height: double.infinity))),
+    ],);
   }
 }
