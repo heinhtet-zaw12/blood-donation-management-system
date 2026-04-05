@@ -6,8 +6,8 @@ class AnnouncementsStateModel {
   final bool isLoading;
   final bool isFailed;
   final bool isSuccess;
-  AnnouncementModel? announcementModel;
-  String? errorMessage;
+  final  AnnouncementModel? announcementModel;
+  final  String? errorMessage;
 
   AnnouncementsStateModel({required this.isLoading, required this.isFailed, required this.isSuccess, this.announcementModel, this.errorMessage});
 

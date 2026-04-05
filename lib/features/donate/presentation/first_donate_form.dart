@@ -42,7 +42,7 @@ void initState() {
  void getUser () async{
   userId = await storage.getUserId();
   //user profile
-  if(userId != null) ref.read(userProfileNotifierProvider.notifier).getProfile(userId: userId!);
+  if(userId != null) ref.read(userProfileNotifierProvider.notifier).getProfile();
   //donor profile
   if(userId != null) ref.read(donorProfileNotifierProvider.notifier).getDonorProfile(userId: userId!);
  }

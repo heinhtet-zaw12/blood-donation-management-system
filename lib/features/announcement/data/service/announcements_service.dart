@@ -11,7 +11,7 @@ class AnnouncementsService {
     if(response.statusCode == 200) return AnnouncementModel.fromJson(response.data);
     return null;
   }on DioException catch(e){
-    final errorMessage = e.response?.data['message'] ?? 'Registration failed';
+    final errorMessage = e.response?.data['message'] ?? 'Failed to fetch announcements';
     throw Exception(errorMessage);
   }
   }

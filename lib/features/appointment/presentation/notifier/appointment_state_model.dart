@@ -3,8 +3,8 @@ class AppointmentStateModel {
  final  bool isLoading;
  final  bool isSuccess;
  final  bool isError;
- String? errorMessage;
-   AppointmentModel? appointmentModel;
+final  String? errorMessage;
+ final  AppointmentModel? appointmentModel;
    AppointmentStateModel({required this.isLoading, required this.isSuccess, required this.isError, this.appointmentModel , this.errorMessage});
 
   AppointmentStateModel copyWith({

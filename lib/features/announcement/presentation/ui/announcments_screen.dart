@@ -52,9 +52,6 @@ class _AnnouncementsScreenState extends ConsumerState<AnnouncementsScreen> {
 
 
    if(announcementState.isLoading) return AnnouncementShimmer();
-   if (announcements == null && announcements!.data!.isEmpty) {
-     return const Center(child: Text("There are no announcements"));
-   }
    if(announcementState.isFailed) {
      return Center(
        child: Column(
@@ -74,6 +71,10 @@ class _AnnouncementsScreenState extends ConsumerState<AnnouncementsScreen> {
        ),
      );
    }
+   if (announcements == null || announcements.data == null || announcements.data!.isEmpty) {
+     return const Center(child: Text("There are no announcements"));
+   }
+
    return  CustomScrollView(
       slivers: [
         SliverToBoxAdapter(
@@ -98,7 +99,7 @@ class _AnnouncementsScreenState extends ConsumerState<AnnouncementsScreen> {
           ),
         ),
         SliverList.builder(
-            itemCount:  announcements.data?.length,
+            itemCount: announcements.data?.length ?? 0,
             itemBuilder: (context, index){
             final  announcement = announcements.data![index];
               return Padding(
