@@ -1,3 +1,4 @@
+import 'package:blood_donation_management_system/features/donate/data/model/donate_model.dart';
 import 'package:blood_donation_management_system/features/donate/data/service/donate_service.dart';
 
 class DonateRepository {
@@ -6,12 +7,12 @@ class DonateRepository {
   DonateRepository(this.api);
 
   Future<void> submitDonation({
-    required int userId,
-    required Map<String, dynamic> body,
+    required String userId,
+    required DonateModel model,
   }) {
     return api.createDonation(
       userId: userId,
-      body: body,
+      body: model.toJson(),
     );
   }
 }

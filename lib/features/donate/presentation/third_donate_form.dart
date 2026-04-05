@@ -23,7 +23,7 @@ class _ThirdDonateFormState extends ConsumerState<ThirdDonateForm> {
     @override
 void initState() {
   super.initState();
-  answers = ref.read(donateFormProvider).answers;
+  // answers = ref.read(donateFormProvider).answers;
 }
 
   Column DonationQuery(BDMSTextTheme textTheme, BDMSColors customColors, String labelText, String queryText){
@@ -136,10 +136,10 @@ Widget buildCheckbox(int index) {
                         ),
                         NextButton(context: context, 
                         onPressed: () {
-                          ref.read(donateFormProvider.notifier).state =
-                              ref.read(donateFormProvider).copyWith(
-                            answers: answers,
-                          );
+                          // ref.read(donateFormProvider.notifier).state =
+                          //     ref.read(donateFormProvider).copyWith(
+                          //   answers: answers,
+                          // );
 
                           ref.read(donateStepProvider.notifier).state =
                               DonateStep.submit;
