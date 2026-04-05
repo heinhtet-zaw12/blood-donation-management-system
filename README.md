@@ -17,20 +17,20 @@ This project follows Clean Architecture principles:
 - 📂 Project Structure
 lib/
  ├── core/
- │    ├── theme/        # App colors, text styles, theme configuration
- │    ├── utils/        # Extensions methids
- │    ├── widgets/      # Reusable UI components
- │    ├── storage/      # flutter secure storage (token, user data)
- │    ├── routes/       # App navigation and routing
- │    ├── result/       # Result pattern (success / failure handling)
- │    └── constants/    # App constants and static values
+ │    ├── theme/        
+ │    ├── utils/       
+ │    ├── widgets/      
+ │    ├── storage/      
+ │    ├── routes/      
+ │    ├── result/       
+ │    └── constants/    
  │
  ├── features/
- │    ├── authentication/   # Login, Register
- │    ├── dashboard/        # Dashboard UI + API
- │    ├── profile/          # User profile
- │    ├── appointment/      # Appointment scheduling
- │    └── donor/            # Become donor feature
+ │    ├── authentication/   
+ │    ├── dashboard/        
+ │    ├── profile/         
+ │    ├── appointment/      
+ │    └── donor/           
 
 ## Features
 - User Authentication (Login / Register)
